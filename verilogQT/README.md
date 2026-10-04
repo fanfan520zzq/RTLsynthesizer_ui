@@ -1,48 +1,62 @@
-# FPGA UI Designer 上位机
+# VerilogQT 上位机
 
-这是从 Tang Mega 60K HDMI 工程分出的 Python 桌面设计器。配套 FPGA 工程位于 `D:\fpga\gowin_fpga_prj\60k_ui_prj`。
+PySide6 UI 设计器、交互预览、JSON 场景和显示 RTL 生成工具。当前默认画布为 800×480。
+本目录为源码维护入口；独立运行副本需要手动同步，虚拟环境应各自创建。
+配套显示/EC11 工程在 `../60k_ui_prj/`，串口回环在 `../fpga_pcui_lp/`。音乐后端源码和位流不随本仓库提供。
 
-当前基线版本为 `v0.1.0-board-verified`；配套 FPGA 位流已由用户在 Tang Mega 60K 实板确认正常显示 UI。
+## 安装和启动
 
-## 运行
-
-当前已在 `D:\verilogQT\.venv` 配好 Python 3.13、PySide6、NumPy 和 Pillow。双击 `start.bat`，选 `1` 启动界面；也可在此目录执行：
-
-```bat
-.venv\Scripts\python.exe run.py
-```
-
-旧环境保留在 `.venv_legacy`，它指向另一台机器的 Python 3.9，不参与启动。如果需要重建当前环境：
-
-```bat
+```powershell
 python -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\启动.bat
 ```
 
-## 功能和目录
+统一入口只有 `启动.bat`：
 
-- `designer/`：PySide6 可视化编辑器、交互式预览、场景模型和 Python 参考渲染器。
-- `generator/`：将场景生成成固定接口、低资源的单个 `ui_generated_scene.v`。
-- `examples/`：`autoplay_status.json` 是面向自动演奏状态的低资源例程。
-- `rtl/`：生成器使用的 FPGA 渲染与事件接口模板。
-- `testbench/`：Python 渲染测试和交互 RTL 测试台。
+- 1：运行 800×480 场景 UI；串口控件需要用户另外提供兼容的外部后端。
+- 2：打开 UI 设计器。
+- 3：外部 Dimension ASCII 串口调试。
+- 4：高级工具，包含独立回环测试、单页显示 RTL 导出和打开目录。
+- 0：退出。
 
-编辑器可以保存和打开 JSON。`Preview` 支持拖动旋钮、鼠标或电脑键盘弹奏琴键，以及按 JSON 规则执行 `click`、`press`、`release`、`change`、`key_down` 和 `key_up` 动作。`Interactions` 用于编辑规则 JSON。
+菜单不自动连接串口、安装依赖或烧录。旧 BAT 保存在 `tools/legacy_launchers/`，作为兼容入口。
+串口使用 PySide6 QtSerialPort，不需要 pyserial。
 
-`Generate RTL` 每次固定只生成 **1 个 Verilog 文件**：`ui_generated_scene.v`。把它覆盖到 FPGA 工程 `rtl/ui_generated_scene.v` 后直接重新编译；顶层、PLL、视频时序、TMDS 和其它业务 RTL 均不需要修改。另生成 `generated_manifest.json` 说明接口，但它不参与 Gowin 工程。
+## 编辑和预览
 
-低资源 FPGA 模式只接受 `panel`、`text`、`bar`、`keyboard`。FFT 频谱和 PCM 波形会被明确拒绝，避免再次产生超大扁平总线和不可控资源。文本支持静态 ASCII；`source=filename` 时从状态总线显示最多 30 个 ASCII 字节。
+打开 `examples/dimension_autoplay_pc.json` 可编辑三页场景。拖动控件可改变坐标，属性面板可改尺寸、文字、所属页面和颜色；支持 HEX/RGB 选色，保存 JSON 后保留。
+可新增/重命名页面、设置默认页、配置本地切页动作。删除仍被控件或导航引用的页面会被阻止；公共控件在每页显示。
+Text 字号范围 8–72 px，设计画布、Preview 和 PC 运行 UI 共用可缩放 ASCII 字形，文字裁剪到控件边界。
+PC 预览支持旋钮、鼠标/电脑键盘事件和本地交互规则。串口绑定场景的预览进入硬件运行窗口，不自动连接；未确认数据不冒充真实后端状态。
+F11 显示纯场景，Esc 返回调试界面。屏幕保持场景像素尺寸，不因扩大窗口而自动放大。
 
-固定接口为 `ui_status_flat[511:0]`（32 个 16 位槽）和 `note_active[127:0]`。`note_active` 的 128 位仅表示 MIDI 音高编号 0..127，不代表显示 128 个物理琴键；每个键盘控件通过 `start_note` 与 `keys` 选择实际显示窗口，且二者之和不能超过 128。
+## 目录
 
-状态槽约定：0..1 `playback_frame`，2..3 `duration_frames`，4 播放标志，5 文件序号，6 进度 0..1023，7 活跃复音数，8 解码错误，9 SD 错误，10 播放错误，11..16 OP1..OP6 电平，17..31 文件名 ASCII（30 字节）。
+- `designer/`：设计器、场景模型、PC 渲染、交互预览和运行窗口。
+- `communication/`：回环协议与外部 Dimension 客户端，不包含 FPGA 业务后端。
+- `generator/`：显示 RTL 生成器。
+- `examples/`：单页显示、三页交互、串口回环等 JSON 示例；不是音乐 ROM。
+- `rtl/`、`testbench/`：旧 UI 渲染/事件模板和相关测试，不含音乐合成核心。
+- `tools/`：统一启动器及兼容入口。
 
-运行自动演奏例程：
+## RTL 导出边界
 
-```bat
-.venv\Scripts\python.exe examples\generate_dx7_rtl.py
+通用 `Generate RTL` 每次生成一个 `ui_generated_scene.v`，拒绝多页和 PC UART 绑定。导出结果不直接替换当前三页 EC11 顶层。
+三页 FPGA UI 请用 `../60k_ui_prj/tools/generate_ec11_ui.py`，详细步骤见 [FPGA UI](../60k_ui_prj/README.md)。
+PC 任意字号与 FPGA 的两档原生字格不同，不能把 PC 外观当作 FPGA 像素效果保证。
+
+## 串口
+
+回环需要烧录独立 `fpga_pcui_lp` 工程，见 [协议](../docs/PCUI_PROTOCOL.md)。
+外部业务客户端的命令和使用边界见 [命令表](../UART_COMMANDS.md)、[Dimension 客户端](../docs/DIMENSION_PCUI.md) 和 [场景控制](../docs/SCENE_PCUI.md)。
+页面和串口客户端仍可在 PC 上测试；本仓库不提供音乐后端位流，独立 UI 位流也不接收 Dimension ASCII 命令。
+
+## 主要回归
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest test_scene_runtime test_dimension test_pcui_protocol test_designer_drag test_designer_colors test_designer_font_size test_designer_panel_size test_pages -v
+.\.venv\Scripts\python.exe test_pcui_gui.py
 ```
 
-输出文件位于 `examples/generated_rtl/ui_generated_scene.v`。当前 PC 交互预览仍可使用，但它属于设计阶段功能；本次 FPGA 输出只覆盖自动演奏显示，不生成手动演奏事件 RTL。
-
-同步前版本保存在 `before_interactive_sync_20260928/`。
+测试使用离屏窗口及模拟串口；不等于实板通信验收。菜单/BAT 回归另见 `test_launcher.py`。

@@ -53,6 +53,8 @@ class RTLGenerator:
         tests and scene readers, but the supported export path deliberately
         writes only ``ui_generated_scene.v``.
         """
+        if scene.pages or scene.local_actions or any(w.page for w in scene.widgets):
+            raise ValueError('PC多页导航不能导出为RTL')
         return CompactRTLGenerator().generate(scene, output_dir)
 
         # Legacy generator retained as reference; unreachable by design.

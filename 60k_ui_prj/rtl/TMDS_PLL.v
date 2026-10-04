@@ -58,14 +58,18 @@ PLLA PLLA_inst (
 defparam PLLA_inst.FCLKIN = "50";
 defparam PLLA_inst.IDIV_SEL = 1;
 defparam PLLA_inst.FBDIV_SEL = 1;
-defparam PLLA_inst.ODIV0_SEL = 3;
-defparam PLLA_inst.ODIV1_SEL = 15;
+// 50 MHz / 1 * 1 * 20 = 1000 MHz VCO (integer dividers).
+// CLKOUT0 = 166.666667 MHz (TMDS 5x), CLKOUT1 = 33.333333 MHz (pixel).
+// The reference 27 MHz rPLL gives 33.3 MHz; the difference is +0.1001%.
+// GW5AT-60 PFD = 50 MHz; retain the 60K PLLA, not the Nano 27 MHz rPLL.
+defparam PLLA_inst.ODIV0_SEL = 6;
+defparam PLLA_inst.ODIV1_SEL = 30;
 defparam PLLA_inst.ODIV2_SEL = 8;
 defparam PLLA_inst.ODIV3_SEL = 8;
 defparam PLLA_inst.ODIV4_SEL = 8;
 defparam PLLA_inst.ODIV5_SEL = 8;
 defparam PLLA_inst.ODIV6_SEL = 8;
-defparam PLLA_inst.MDIV_SEL = 22;
+defparam PLLA_inst.MDIV_SEL = 20;
 defparam PLLA_inst.MDIV_FRAC_SEL = 0;
 defparam PLLA_inst.ODIV0_FRAC_SEL = 0;
 defparam PLLA_inst.CLKOUT0_EN = "TRUE";

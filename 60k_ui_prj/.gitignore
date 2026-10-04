@@ -1,5 +1,6 @@
 # Gowin generated implementation data
 impl/
+sim/
 *.gprj.user
 *.log
 

@@ -1,0 +1,18 @@
+{
+  "name": "pcui_loopback_confirmed",
+  "width": 760,
+  "height": 140,
+  "bg_color": {"r": 15, "g": 23, "b": 42},
+  "widgets": [
+    {"type":"text","name":"title","x":18,"y":8,"width":720,"height":20,"text":"FPGA CONFIRMED REGISTERS 0-7","color":{"r":226,"g":232,"b":240}},
+    {"type":"bar","name":"reg0","x":28,"y":35,"width":48,"height":88,"source":"ui_state[0]"},
+    {"type":"bar","name":"reg1","x":108,"y":35,"width":48,"height":88,"source":"ui_state[1]"},
+    {"type":"bar","name":"reg2","x":188,"y":35,"width":48,"height":88,"source":"ui_state[2]"},
+    {"type":"bar","name":"reg3","x":268,"y":35,"width":48,"height":88,"source":"ui_state[3]"},
+    {"type":"bar","name":"reg4","x":348,"y":35,"width":48,"height":88,"source":"ui_state[4]"},
+    {"type":"bar","name":"reg5","x":428,"y":35,"width":48,"height":88,"source":"ui_state[5]"},
+    {"type":"bar","name":"reg6","x":508,"y":35,"width":48,"height":88,"source":"ui_state[6]"},
+    {"type":"bar","name":"reg7","x":588,"y":35,"width":48,"height":88,"source":"ui_state[7]"}
+  ],
+  "interactions": []
+}

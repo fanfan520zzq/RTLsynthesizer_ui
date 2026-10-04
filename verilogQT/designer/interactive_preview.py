@@ -47,6 +47,8 @@ class InteractivePreviewDialog(QDialog):
         self.resize(scene.width + 40, scene.height + 80)
 
         self.scene = scene
+        scene.validate_navigation()
+        self.current_page = scene.initial_page
         # Validate the same interaction contract used by RTL generation before
         # the window starts accepting input. This keeps a hand-edited scene
         # from failing later inside an event callback.
@@ -112,7 +114,7 @@ class InteractivePreviewDialog(QDialog):
         self.state.update_animation()
 
         # 渲染
-        frame = self.renderer.render_scene(self.scene, self.state.to_dict())
+        frame = self.renderer.render_scene(self.scene, self.state.to_dict(), self.current_page)
 
         # 转换为 QImage
         height, width, channels = frame.shape
@@ -271,7 +273,7 @@ class InteractivePreviewDialog(QDialog):
 
         for key_idx in tuple(self._pressed_keyboard_keys):
             self.state.set_key_down(key_idx, False)
-            for widget in self.scene.widgets:
+            for widget in self.scene.visible_widgets(self.current_page):
                 if isinstance(widget, KeyboardWidget) and widget.visible:
                     self._dispatch_interactions("key_up", widget, key_idx)
         self._pressed_keyboard_keys.clear()
@@ -290,7 +292,7 @@ class InteractivePreviewDialog(QDialog):
                 return
             self._pressed_keyboard_keys.add(key_idx)
             self.state.set_key_down(key_idx, True)
-            for widget in self.scene.widgets:
+            for widget in self.scene.visible_widgets(self.current_page):
                 if isinstance(widget, KeyboardWidget) and widget.visible:
                     self._dispatch_interactions("key_down", widget, key_idx)
             self.status_label.setText(f"Key {key_idx} pressed (keyboard)")
@@ -306,7 +308,7 @@ class InteractivePreviewDialog(QDialog):
                 return
             self._pressed_keyboard_keys.remove(key_idx)
             self.state.set_key_down(key_idx, False)
-            for widget in self.scene.widgets:
+            for widget in self.scene.visible_widgets(self.current_page):
                 if isinstance(widget, KeyboardWidget) and widget.visible:
                     self._dispatch_interactions("key_up", widget, key_idx)
             self.status_label.setText("Ready")
@@ -314,6 +316,10 @@ class InteractivePreviewDialog(QDialog):
     def _dispatch_interactions(self, event_name: str, widget, event_value: int = 0):
         """Run JSON-defined actions for one preview event."""
         source = getattr(widget, "name", "")
+        action = self.scene.local_actions.get(source)
+        if event_name == 'click' and action:
+            self.switch_page(action['target'])
+            return
         for rule in self.scene.interactions:
             if not isinstance(rule, dict):
                 continue
@@ -344,13 +350,20 @@ class InteractivePreviewDialog(QDialog):
     def _hit_test(self, pos: QPoint):
         """Return the topmost visible widget containing ``pos``."""
         ordered = sorted(
-            (widget for widget in self.scene.widgets if widget.visible),
+            self.scene.visible_widgets(self.current_page),
             key=lambda widget: widget.layer,
         )
         for widget in reversed(ordered):
             if self._point_in_widget(pos, widget):
                 return widget
         return None
+
+    def switch_page(self, page_id):
+        if page_id not in {p['id'] for p in self.scene.pages}:
+            raise ValueError('页面不存在')
+        self._release_active_inputs()
+        self.current_page = page_id
+        self.update_frame()
 
     def _point_in_widget(self, pos: QPoint, widget) -> bool:
         """检查点是否在控件内"""

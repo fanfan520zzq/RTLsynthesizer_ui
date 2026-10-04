@@ -1,0 +1,20 @@
+**/.venv/
+**/.venv_legacy/
+**/__pycache__/
+**/*.py[cod]
+**/impl/
+**/*.gprj.user
+**/*.log
+**/*.tmp
+**/*.bak
+**/*.out
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+verilogQT/examples/generated_rtl/
+verilogQT/test_output/
+verilogQT/test_output.png
+# Music and integrated application sources must stay outside this UI repository.
+/60k_union_autoplayer/
+/60k_dimension_multifile/

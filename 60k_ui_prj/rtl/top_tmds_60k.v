@@ -38,16 +38,17 @@ module top_tmds_60k (
     wire video_de;
 
     video_timing_ctrl #(
-        .video_hlength   (1650),
-        .video_vlength   (750),
+        // Match rv_test's 800x480 panel timing (positive syncs).
+        .video_hlength   (1056),
+        .video_vlength   (525),
         .video_hsync_pol (1),
-        .video_hsync_len (40),
-        .video_hbp_len   (220),
-        .video_h_visible (1280),
+        .video_hsync_len (20),
+        .video_hbp_len   (26),
+        .video_h_visible (800),
         .video_vsync_pol (1),
-        .video_vsync_len (5),
-        .video_vbp_len   (20),
-        .video_v_visible (720)
+        .video_vsync_len (3),
+        .video_vbp_len   (23),
+        .video_v_visible (480)
     ) u_video_timing (
         .pixel_clock      (clk_pixel),
         .reset            (~video_resetn),

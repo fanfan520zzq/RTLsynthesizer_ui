@@ -1,0 +1,1583 @@
+{
+  "name": "dimension_autoplay_pc",
+  "width": 800,
+  "height": 480,
+  "bg_color": {
+    "r": 5,
+    "g": 7,
+    "b": 12
+  },
+  "widgets": [
+    {
+      "type": "text",
+      "name": "title",
+      "x": 16,
+      "y": 8,
+      "width": 468,
+      "height": 24,
+      "layer": 2,
+      "text": "DIMENSION / SD AUTOPLAY",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "",
+      "font_size": 20
+    },
+    {
+      "type": "text",
+      "name": "link",
+      "x": 492,
+      "y": 12,
+      "width": 292,
+      "height": 20,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "",
+      "font_size": 12
+    },
+    {
+      "type": "panel",
+      "name": "nav_sd_songs_bg",
+      "page": "",
+      "x": 16,
+      "y": 44,
+      "width": 248,
+      "height": 40,
+      "layer": 10,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 56,
+        "g": 189,
+        "b": 248
+      },
+      "border_width": 1
+    },
+    {
+      "type": "text",
+      "name": "nav_sd_songs",
+      "page": "",
+      "x": 20,
+      "y": 56,
+      "width": 240,
+      "height": 24,
+      "layer": 11,
+      "text": "SD SONGS",
+      "font_size": 16,
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "align": "center"
+    },
+    {
+      "type": "panel",
+      "name": "nav_sound_fx_bg",
+      "page": "",
+      "x": 276,
+      "y": 44,
+      "width": 248,
+      "height": 40,
+      "layer": 10,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 56,
+        "g": 189,
+        "b": 248
+      },
+      "border_width": 1
+    },
+    {
+      "type": "text",
+      "name": "nav_sound_fx",
+      "page": "",
+      "x": 280,
+      "y": 56,
+      "width": 240,
+      "height": 24,
+      "layer": 11,
+      "text": "PATCH / EFFECTS",
+      "font_size": 16,
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "align": "center"
+    },
+    {
+      "type": "panel",
+      "name": "nav_status_play_bg",
+      "page": "",
+      "x": 536,
+      "y": 44,
+      "width": 248,
+      "height": 40,
+      "layer": 10,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 56,
+        "g": 189,
+        "b": 248
+      },
+      "border_width": 1
+    },
+    {
+      "type": "text",
+      "name": "nav_status_play",
+      "page": "",
+      "x": 540,
+      "y": 56,
+      "width": 240,
+      "height": 24,
+      "layer": 11,
+      "text": "STATUS / PLAY",
+      "font_size": 16,
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "name": "hint",
+      "x": 16,
+      "y": 464,
+      "width": 768,
+      "height": 16,
+      "layer": 2,
+      "text": "NAVIGATION IS LOCAL | F11: SCREEN | ESC: DEBUG",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "",
+      "font_size": 12
+    },
+    {
+      "type": "panel",
+      "name": "songs",
+      "x": 16,
+      "y": 100,
+      "width": 768,
+      "height": 310,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sd_songs"
+    },
+    {
+      "type": "text",
+      "name": "selected_file",
+      "x": 32,
+      "y": 116,
+      "width": 736,
+      "height": 28,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sd_songs",
+      "font_size": 20
+    },
+    {
+      "type": "text",
+      "name": "loaded_file",
+      "x": 32,
+      "y": 154,
+      "width": 736,
+      "height": 22,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sd_songs",
+      "font_size": 16
+    },
+    {
+      "type": "text",
+      "name": "catalog_row_0",
+      "page": "sd_songs",
+      "x": 32,
+      "y": 194,
+      "width": 736,
+      "height": 20,
+      "layer": 3,
+      "text": "SCAN SD TO READ FILE LIST",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "catalog_row_1",
+      "page": "sd_songs",
+      "x": 32,
+      "y": 216,
+      "width": 736,
+      "height": 20,
+      "layer": 3,
+      "text": "",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "catalog_row_2",
+      "page": "sd_songs",
+      "x": 32,
+      "y": 238,
+      "width": 736,
+      "height": 20,
+      "layer": 3,
+      "text": "",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "catalog_row_3",
+      "page": "sd_songs",
+      "x": 32,
+      "y": 260,
+      "width": 736,
+      "height": 20,
+      "layer": 3,
+      "text": "",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "catalog_row_4",
+      "page": "sd_songs",
+      "x": 32,
+      "y": 282,
+      "width": 736,
+      "height": 20,
+      "layer": 3,
+      "text": "",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "catalog_row_5",
+      "page": "sd_songs",
+      "x": 32,
+      "y": 304,
+      "width": 736,
+      "height": 20,
+      "layer": 3,
+      "text": "",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "panel",
+      "name": "scan_bg",
+      "x": 32,
+      "y": 348,
+      "width": 144,
+      "height": 48,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sd_songs"
+    },
+    {
+      "type": "text",
+      "name": "scan",
+      "x": 34,
+      "y": 360,
+      "width": 140,
+      "height": 36,
+      "layer": 3,
+      "text": "SCAN SD",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sd_songs",
+      "font_size": 18
+    },
+    {
+      "type": "panel",
+      "name": "prev_bg",
+      "x": 192,
+      "y": 348,
+      "width": 104,
+      "height": 48,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sd_songs"
+    },
+    {
+      "type": "text",
+      "name": "prev",
+      "x": 194,
+      "y": 360,
+      "width": 100,
+      "height": 36,
+      "layer": 3,
+      "text": "< PREV",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sd_songs",
+      "font_size": 18
+    },
+    {
+      "type": "panel",
+      "name": "next_bg",
+      "x": 312,
+      "y": 348,
+      "width": 104,
+      "height": 48,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sd_songs"
+    },
+    {
+      "type": "text",
+      "name": "next",
+      "x": 314,
+      "y": 360,
+      "width": 100,
+      "height": 36,
+      "layer": 3,
+      "text": "NEXT >",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sd_songs",
+      "font_size": 18
+    },
+    {
+      "type": "panel",
+      "name": "load_bg",
+      "x": 432,
+      "y": 348,
+      "width": 336,
+      "height": 48,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sd_songs"
+    },
+    {
+      "type": "text",
+      "name": "load",
+      "x": 434,
+      "y": 360,
+      "width": 332,
+      "height": 36,
+      "layer": 3,
+      "text": "LOAD SELECTED FILE",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sd_songs",
+      "font_size": 18
+    },
+    {
+      "type": "text",
+      "name": "sd_help",
+      "page": "sd_songs",
+      "x": 24,
+      "y": 424,
+      "width": 752,
+      "height": 20,
+      "layer": 3,
+      "text": "SCAN -> PREV/NEXT -> LOAD -> STATUS / PLAY",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "sd_format",
+      "page": "sd_songs",
+      "x": 24,
+      "y": 446,
+      "width": 752,
+      "height": 16,
+      "layer": 3,
+      "text": "Root directory | Supported song files | FAT short names",
+      "font_size": 12,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "panel",
+      "name": "presets",
+      "x": 16,
+      "y": 100,
+      "width": 768,
+      "height": 102,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset",
+      "x": 32,
+      "y": 112,
+      "width": 736,
+      "height": 24,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_0_bg",
+      "x": 32,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_0",
+      "x": 34,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 0",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_1_bg",
+      "x": 136,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_1",
+      "x": 138,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 1",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_2_bg",
+      "x": 240,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_2",
+      "x": 242,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 2",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_3_bg",
+      "x": 344,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_3",
+      "x": 346,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 3",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_4_bg",
+      "x": 448,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_4",
+      "x": 450,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 4",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_5_bg",
+      "x": 552,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_5",
+      "x": 554,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 5",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "preset_6_bg",
+      "x": 656,
+      "y": 146,
+      "width": 96,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "preset_6",
+      "x": 658,
+      "y": 158,
+      "width": 92,
+      "height": 32,
+      "layer": 3,
+      "text": "PATCH 6",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "effects",
+      "x": 16,
+      "y": 212,
+      "width": 768,
+      "height": 208,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "label_R",
+      "x": 44,
+      "y": 228,
+      "width": 160,
+      "height": 24,
+      "layer": 2,
+      "text": "RATE",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 18,
+      "align": "center"
+    },
+    {
+      "type": "knob",
+      "name": "fx_R",
+      "x": 84,
+      "y": 264,
+      "width": 80,
+      "height": 80,
+      "layer": 2,
+      "source": "ui_state[0]",
+      "min_value": 0,
+      "max_value": 255,
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "read_R",
+      "x": 44,
+      "y": 352,
+      "width": 160,
+      "height": 20,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 14,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "name": "label_D",
+      "x": 228,
+      "y": 228,
+      "width": 160,
+      "height": 24,
+      "layer": 2,
+      "text": "DEPTH",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 18,
+      "align": "center"
+    },
+    {
+      "type": "knob",
+      "name": "fx_D",
+      "x": 268,
+      "y": 264,
+      "width": 80,
+      "height": 80,
+      "layer": 2,
+      "source": "ui_state[1]",
+      "min_value": 0,
+      "max_value": 255,
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "read_D",
+      "x": 228,
+      "y": 352,
+      "width": 160,
+      "height": 20,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 14,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "name": "label_W",
+      "x": 412,
+      "y": 228,
+      "width": 160,
+      "height": 24,
+      "layer": 2,
+      "text": "WIDTH",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 18,
+      "align": "center"
+    },
+    {
+      "type": "knob",
+      "name": "fx_W",
+      "x": 452,
+      "y": 264,
+      "width": 80,
+      "height": 80,
+      "layer": 2,
+      "source": "ui_state[2]",
+      "min_value": 0,
+      "max_value": 255,
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "read_W",
+      "x": 412,
+      "y": 352,
+      "width": 160,
+      "height": 20,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 14,
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "name": "label_M",
+      "x": 596,
+      "y": 228,
+      "width": 160,
+      "height": 24,
+      "layer": 2,
+      "text": "MIX",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 18,
+      "align": "center"
+    },
+    {
+      "type": "knob",
+      "name": "fx_M",
+      "x": 636,
+      "y": 264,
+      "width": 80,
+      "height": 80,
+      "layer": 2,
+      "source": "ui_state[3]",
+      "min_value": 0,
+      "max_value": 255,
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "read_M",
+      "x": 596,
+      "y": 352,
+      "width": 160,
+      "height": 20,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 14,
+      "align": "center"
+    },
+    {
+      "type": "panel",
+      "name": "fx_on_bg",
+      "x": 32,
+      "y": 380,
+      "width": 136,
+      "height": 32,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "fx_on",
+      "x": 34,
+      "y": 392,
+      "width": 132,
+      "height": 20,
+      "layer": 3,
+      "text": "FX ON",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "fx_off_bg",
+      "x": 184,
+      "y": 380,
+      "width": 160,
+      "height": 32,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "sound_fx"
+    },
+    {
+      "type": "text",
+      "name": "fx_off",
+      "x": 186,
+      "y": 392,
+      "width": 156,
+      "height": 20,
+      "layer": 3,
+      "text": "FX BYPASS",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "text",
+      "name": "fx_enable",
+      "x": 376,
+      "y": 390,
+      "width": 384,
+      "height": 20,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "sound_fx",
+      "font_size": 16
+    },
+    {
+      "type": "text",
+      "name": "fx_help",
+      "page": "sound_fx",
+      "x": 24,
+      "y": 434,
+      "width": 752,
+      "height": 20,
+      "layer": 3,
+      "text": "R/D/W/M/E = CURRENT DIMENSION EFFECT; NOT A NEW REVERB ENGINE",
+      "font_size": 12,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "panel",
+      "name": "transport",
+      "x": 16,
+      "y": 100,
+      "width": 768,
+      "height": 298,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "status_play"
+    },
+    {
+      "type": "text",
+      "name": "status_loaded",
+      "page": "status_play",
+      "x": 32,
+      "y": 118,
+      "width": 736,
+      "height": 24,
+      "layer": 3,
+      "text": "LOADED: UNKNOWN",
+      "font_size": 16,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "mode",
+      "x": 32,
+      "y": 160,
+      "width": 736,
+      "height": 24,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "status_play",
+      "font_size": 18
+    },
+    {
+      "type": "text",
+      "name": "playback",
+      "x": 32,
+      "y": 198,
+      "width": 736,
+      "height": 30,
+      "layer": 2,
+      "text": "UNKNOWN",
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      },
+      "page": "status_play",
+      "font_size": 16
+    },
+    {
+      "type": "panel",
+      "name": "auto_bg",
+      "x": 32,
+      "y": 254,
+      "width": 224,
+      "height": 54,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "status_play"
+    },
+    {
+      "type": "text",
+      "name": "auto",
+      "x": 34,
+      "y": 266,
+      "width": 220,
+      "height": 42,
+      "layer": 3,
+      "text": "AUTO MODE",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "status_play",
+      "font_size": 20
+    },
+    {
+      "type": "panel",
+      "name": "play_bg",
+      "x": 288,
+      "y": 254,
+      "width": 224,
+      "height": 54,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "status_play"
+    },
+    {
+      "type": "text",
+      "name": "play",
+      "x": 290,
+      "y": 266,
+      "width": 220,
+      "height": 42,
+      "layer": 3,
+      "text": "PLAY",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "status_play",
+      "font_size": 20
+    },
+    {
+      "type": "panel",
+      "name": "stop_bg",
+      "x": 544,
+      "y": 254,
+      "width": 224,
+      "height": 54,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "status_play"
+    },
+    {
+      "type": "text",
+      "name": "stop",
+      "x": 546,
+      "y": 266,
+      "width": 220,
+      "height": 42,
+      "layer": 3,
+      "text": "STOP",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "status_play",
+      "font_size": 20
+    },
+    {
+      "type": "panel",
+      "name": "query_bg",
+      "x": 32,
+      "y": 336,
+      "width": 736,
+      "height": 44,
+      "bg_color": {
+        "r": 15,
+        "g": 23,
+        "b": 42
+      },
+      "border_color": {
+        "r": 51,
+        "g": 65,
+        "b": 85
+      },
+      "page": "status_play"
+    },
+    {
+      "type": "text",
+      "name": "query",
+      "x": 34,
+      "y": 348,
+      "width": 732,
+      "height": 32,
+      "layer": 3,
+      "text": "QUERY FPGA MODE",
+      "align": "center",
+      "color": {
+        "r": 125,
+        "g": 211,
+        "b": 252
+      },
+      "page": "status_play",
+      "font_size": 18
+    },
+    {
+      "type": "text",
+      "name": "play_help",
+      "page": "status_play",
+      "x": 24,
+      "y": 412,
+      "width": 752,
+      "height": 20,
+      "layer": 3,
+      "text": "Load a song first. AUTO -> PLAY; STOP performs cleanup.",
+      "font_size": 14,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    },
+    {
+      "type": "text",
+      "name": "play_ack_help",
+      "page": "status_play",
+      "x": 24,
+      "y": 438,
+      "width": 752,
+      "height": 20,
+      "layer": 3,
+      "text": "Playback shows last FPGA ACK, not live position or completion.",
+      "font_size": 12,
+      "color": {
+        "r": 226,
+        "g": 232,
+        "b": 240
+      }
+    }
+  ],
+  "interactions": [],
+  "pc_bindings": {
+    "link": {
+      "kind": "feedback",
+      "field": "status"
+    },
+    "selected_file": {
+      "kind": "feedback",
+      "field": "selected"
+    },
+    "loaded_file": {
+      "kind": "feedback",
+      "field": "loaded"
+    },
+    "scan": {
+      "kind": "scan"
+    },
+    "prev": {
+      "kind": "previous"
+    },
+    "next": {
+      "kind": "next"
+    },
+    "load": {
+      "kind": "load"
+    },
+    "mode": {
+      "kind": "feedback",
+      "field": "mode"
+    },
+    "playback": {
+      "kind": "feedback",
+      "field": "playback"
+    },
+    "auto": {
+      "kind": "command",
+      "command": "A"
+    },
+    "play": {
+      "kind": "command",
+      "command": "P"
+    },
+    "stop": {
+      "kind": "command",
+      "command": "S"
+    },
+    "query": {
+      "kind": "command",
+      "command": "Q"
+    },
+    "fx_R": {
+      "kind": "effect",
+      "parameter": "R"
+    },
+    "read_R": {
+      "kind": "feedback",
+      "field": "R"
+    },
+    "fx_D": {
+      "kind": "effect",
+      "parameter": "D"
+    },
+    "read_D": {
+      "kind": "feedback",
+      "field": "D"
+    },
+    "fx_W": {
+      "kind": "effect",
+      "parameter": "W"
+    },
+    "read_W": {
+      "kind": "feedback",
+      "field": "W"
+    },
+    "fx_M": {
+      "kind": "effect",
+      "parameter": "M"
+    },
+    "read_M": {
+      "kind": "feedback",
+      "field": "M"
+    },
+    "fx_on": {
+      "kind": "command",
+      "command": "!E01"
+    },
+    "fx_off": {
+      "kind": "command",
+      "command": "!E00"
+    },
+    "fx_enable": {
+      "kind": "feedback",
+      "field": "E"
+    },
+    "preset": {
+      "kind": "feedback",
+      "field": "preset"
+    },
+    "preset_0": {
+      "kind": "command",
+      "command": "0"
+    },
+    "preset_1": {
+      "kind": "command",
+      "command": "1"
+    },
+    "preset_2": {
+      "kind": "command",
+      "command": "2"
+    },
+    "preset_3": {
+      "kind": "command",
+      "command": "3"
+    },
+    "preset_4": {
+      "kind": "command",
+      "command": "4"
+    },
+    "preset_5": {
+      "kind": "command",
+      "command": "5"
+    },
+    "preset_6": {
+      "kind": "command",
+      "command": "6"
+    },
+    "catalog_row_0": {
+      "kind": "feedback",
+      "field": "file_0"
+    },
+    "catalog_row_1": {
+      "kind": "feedback",
+      "field": "file_1"
+    },
+    "catalog_row_2": {
+      "kind": "feedback",
+      "field": "file_2"
+    },
+    "catalog_row_3": {
+      "kind": "feedback",
+      "field": "file_3"
+    },
+    "catalog_row_4": {
+      "kind": "feedback",
+      "field": "file_4"
+    },
+    "catalog_row_5": {
+      "kind": "feedback",
+      "field": "file_5"
+    },
+    "status_loaded": {
+      "kind": "feedback",
+      "field": "loaded"
+    }
+  },
+  "pages": [
+    {
+      "id": "sd_songs",
+      "title": "SD曲目页"
+    },
+    {
+      "id": "sound_fx",
+      "title": "音色配置与混响调节页"
+    },
+    {
+      "id": "status_play",
+      "title": "状态说明与播放页"
+    }
+  ],
+  "initial_page": "sd_songs",
+  "local_actions": {
+    "nav_sd_songs_bg": {
+      "action": "switch_page",
+      "target": "sd_songs"
+    },
+    "nav_sd_songs": {
+      "action": "switch_page",
+      "target": "sd_songs"
+    },
+    "nav_sound_fx_bg": {
+      "action": "switch_page",
+      "target": "sound_fx"
+    },
+    "nav_sound_fx": {
+      "action": "switch_page",
+      "target": "sound_fx"
+    },
+    "nav_status_play_bg": {
+      "action": "switch_page",
+      "target": "status_play"
+    },
+    "nav_status_play": {
+      "action": "switch_page",
+      "target": "status_play"
+    }
+  }
+}

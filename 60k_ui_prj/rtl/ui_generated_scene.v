@@ -22,7 +22,6 @@ module ui_generated_scene (
         input [2:0] row;
         begin
             case ({ch, row})
-                {8'd45, 3'd3}: font5x7 = 5'b11111;
                 {8'd48, 3'd0}: font5x7 = 5'b01110;
                 {8'd48, 3'd1}: font5x7 = 5'b10001;
                 {8'd48, 3'd2}: font5x7 = 5'b10011;
@@ -72,13 +71,13 @@ module ui_generated_scene (
                 {8'd54, 3'd4}: font5x7 = 5'b10001;
                 {8'd54, 3'd5}: font5x7 = 5'b10001;
                 {8'd54, 3'd6}: font5x7 = 5'b01110;
-                {8'd55, 3'd0}: font5x7 = 5'b11111;
-                {8'd55, 3'd1}: font5x7 = 5'b00001;
-                {8'd55, 3'd2}: font5x7 = 5'b00010;
-                {8'd55, 3'd3}: font5x7 = 5'b00100;
-                {8'd55, 3'd4}: font5x7 = 5'b01000;
-                {8'd55, 3'd5}: font5x7 = 5'b01000;
-                {8'd55, 3'd6}: font5x7 = 5'b01000;
+                {8'd56, 3'd0}: font5x7 = 5'b01110;
+                {8'd56, 3'd1}: font5x7 = 5'b10001;
+                {8'd56, 3'd2}: font5x7 = 5'b10001;
+                {8'd56, 3'd3}: font5x7 = 5'b01110;
+                {8'd56, 3'd4}: font5x7 = 5'b10001;
+                {8'd56, 3'd5}: font5x7 = 5'b10001;
+                {8'd56, 3'd6}: font5x7 = 5'b01110;
                 {8'd65, 3'd0}: font5x7 = 5'b01110;
                 {8'd65, 3'd1}: font5x7 = 5'b10001;
                 {8'd65, 3'd2}: font5x7 = 5'b10001;
@@ -156,13 +155,6 @@ module ui_generated_scene (
                 {8'd76, 3'd4}: font5x7 = 5'b10000;
                 {8'd76, 3'd5}: font5x7 = 5'b10000;
                 {8'd76, 3'd6}: font5x7 = 5'b11111;
-                {8'd77, 3'd0}: font5x7 = 5'b10001;
-                {8'd77, 3'd1}: font5x7 = 5'b11011;
-                {8'd77, 3'd2}: font5x7 = 5'b10101;
-                {8'd77, 3'd3}: font5x7 = 5'b10101;
-                {8'd77, 3'd4}: font5x7 = 5'b10001;
-                {8'd77, 3'd5}: font5x7 = 5'b10001;
-                {8'd77, 3'd6}: font5x7 = 5'b10001;
                 {8'd78, 3'd0}: font5x7 = 5'b10001;
                 {8'd78, 3'd1}: font5x7 = 5'b11001;
                 {8'd78, 3'd2}: font5x7 = 5'b10101;
@@ -219,6 +211,13 @@ module ui_generated_scene (
                 {8'd86, 3'd4}: font5x7 = 5'b10001;
                 {8'd86, 3'd5}: font5x7 = 5'b01010;
                 {8'd86, 3'd6}: font5x7 = 5'b00100;
+                {8'd88, 3'd0}: font5x7 = 5'b10001;
+                {8'd88, 3'd1}: font5x7 = 5'b10001;
+                {8'd88, 3'd2}: font5x7 = 5'b01010;
+                {8'd88, 3'd3}: font5x7 = 5'b00100;
+                {8'd88, 3'd4}: font5x7 = 5'b01010;
+                {8'd88, 3'd5}: font5x7 = 5'b10001;
+                {8'd88, 3'd6}: font5x7 = 5'b10001;
                 {8'd89, 3'd0}: font5x7 = 5'b10001;
                 {8'd89, 3'd1}: font5x7 = 5'b10001;
                 {8'd89, 3'd2}: font5x7 = 5'b01010;
@@ -226,36 +225,54 @@ module ui_generated_scene (
                 {8'd89, 3'd4}: font5x7 = 5'b00100;
                 {8'd89, 3'd5}: font5x7 = 5'b00100;
                 {8'd89, 3'd6}: font5x7 = 5'b00100;
+                {8'd90, 3'd0}: font5x7 = 5'b11111;
+                {8'd90, 3'd1}: font5x7 = 5'b00001;
+                {8'd90, 3'd2}: font5x7 = 5'b00010;
+                {8'd90, 3'd3}: font5x7 = 5'b00100;
+                {8'd90, 3'd4}: font5x7 = 5'b01000;
+                {8'd90, 3'd5}: font5x7 = 5'b10000;
+                {8'd90, 3'd6}: font5x7 = 5'b11111;
                 default: font5x7 = 5'b00000;
             endcase
         end
     endfunction
 
     wire [15:0] bar_0_value = ui_status_flat[96 +: 16];
-    wire [15:0] bar_0_fill = (bar_0_value[9:0] * 16'd936) >> 10;
+    wire [25:0] bar_0_product = bar_0_value[9:0] * 16'd536;
+    wire [15:0] bar_0_fill = bar_0_product >> 10;
     wire [15:0] bar_1_value = ui_status_flat[176 +: 16];
-    wire [15:0] bar_1_fill = (bar_1_value[9:0] * 16'd632) >> 10;
+    wire [25:0] bar_1_product = bar_1_value[9:0] * 16'd384;
+    wire [15:0] bar_1_fill = bar_1_product >> 10;
     wire [15:0] bar_2_value = ui_status_flat[192 +: 16];
-    wire [15:0] bar_2_fill = (bar_2_value[9:0] * 16'd632) >> 10;
+    wire [25:0] bar_2_product = bar_2_value[9:0] * 16'd384;
+    wire [15:0] bar_2_fill = bar_2_product >> 10;
     wire [15:0] bar_3_value = ui_status_flat[208 +: 16];
-    wire [15:0] bar_3_fill = (bar_3_value[9:0] * 16'd632) >> 10;
+    wire [25:0] bar_3_product = bar_3_value[9:0] * 16'd384;
+    wire [15:0] bar_3_fill = bar_3_product >> 10;
     wire [15:0] bar_4_value = ui_status_flat[224 +: 16];
-    wire [15:0] bar_4_fill = (bar_4_value[9:0] * 16'd632) >> 10;
+    wire [25:0] bar_4_product = bar_4_value[9:0] * 16'd384;
+    wire [15:0] bar_4_fill = bar_4_product >> 10;
     wire [15:0] bar_5_value = ui_status_flat[240 +: 16];
-    wire [15:0] bar_5_fill = (bar_5_value[9:0] * 16'd632) >> 10;
+    wire [25:0] bar_5_product = bar_5_value[9:0] * 16'd384;
+    wire [15:0] bar_5_fill = bar_5_product >> 10;
     wire [15:0] bar_6_value = ui_status_flat[256 +: 16];
-    wire [15:0] bar_6_fill = (bar_6_value[9:0] * 16'd632) >> 10;
+    wire [25:0] bar_6_product = bar_6_value[9:0] * 16'd384;
+    wire [15:0] bar_6_fill = bar_6_product >> 10;
     wire [15:0] bar_7_value = ui_status_flat[112 +: 16];
-    wire [15:0] bar_7_fill = (bar_7_value[9:0] * 16'd352) >> 10;
+    wire [25:0] bar_7_product = bar_7_value[9:0] * 16'd248;
+    wire [15:0] bar_7_fill = bar_7_product >> 10;
     wire [15:0] bar_8_value = ui_status_flat[128 +: 16];
-    wire [15:0] bar_8_fill = (bar_8_value[9:0] * 16'd104) >> 10;
+    wire [25:0] bar_8_product = bar_8_value[9:0] * 16'd72;
+    wire [15:0] bar_8_fill = bar_8_product >> 10;
     wire [15:0] bar_9_value = ui_status_flat[144 +: 16];
-    wire [15:0] bar_9_fill = (bar_9_value[9:0] * 16'd104) >> 10;
+    wire [25:0] bar_9_product = bar_9_value[9:0] * 16'd72;
+    wire [15:0] bar_9_fill = bar_9_product >> 10;
     wire [15:0] bar_10_value = ui_status_flat[160 +: 16];
-    wire [15:0] bar_10_fill = (bar_10_value[9:0] * 16'd104) >> 10;
+    wire [25:0] bar_10_product = bar_10_value[9:0] * 16'd72;
+    wire [15:0] bar_10_fill = bar_10_product >> 10;
 
-    wire [10:0] text_0_lx = pixel_x - 11'd28;
-    wire [9:0] text_0_ly = pixel_y - 10'd20;
+    wire [10:0] text_0_lx = pixel_x - 11'd16;
+    wire [9:0] text_0_ly = pixel_y - 10'd16;
     wire [7:0] text_0_index = text_0_lx / 16;
     reg [7:0] text_0_char;
     always @(*) begin
@@ -292,37 +309,36 @@ module ui_generated_scene (
         (text_0_ly < 14) && (text_0_col < 5) &&
         text_0_glyph[4-text_0_col];
 
-    wire [10:0] text_1_lx = pixel_x - 11'd1040;
-    wire [9:0] text_1_ly = pixel_y - 10'd20;
+    wire [10:0] text_1_lx = pixel_x - 11'd560;
+    wire [9:0] text_1_ly = pixel_y - 10'd16;
     wire [7:0] text_1_index = text_1_lx / 16;
     reg [7:0] text_1_char;
     always @(*) begin
         case (text_1_index)
-            8'd0: text_1_char = 8'd55;
-            8'd1: text_1_char = 8'd50;
+            8'd0: text_1_char = 8'd56;
+            8'd1: text_1_char = 8'd48;
             8'd2: text_1_char = 8'd48;
-            8'd3: text_1_char = 8'd80;
-            8'd4: text_1_char = 8'd54;
-            8'd5: text_1_char = 8'd48;
-            8'd6: text_1_char = 8'd32;
+            8'd3: text_1_char = 8'd88;
+            8'd4: text_1_char = 8'd52;
+            8'd5: text_1_char = 8'd56;
+            8'd6: text_1_char = 8'd48;
             8'd7: text_1_char = 8'd32;
-            8'd8: text_1_char = 8'd77;
-            8'd9: text_1_char = 8'd73;
-            8'd10: text_1_char = 8'd68;
-            8'd11: text_1_char = 8'd73;
-            8'd12: text_1_char = 8'd32;
+            8'd8: text_1_char = 8'd54;
+            8'd9: text_1_char = 8'd48;
+            8'd10: text_1_char = 8'd72;
+            8'd11: text_1_char = 8'd90;
             default: text_1_char = 8'd32;
         endcase
     end
     wire [2:0] text_1_row = text_1_ly / 2;
     wire [2:0] text_1_col = (text_1_lx % 16) / 2;
     wire [4:0] text_1_glyph = font5x7(text_1_char, text_1_row);
-    wire text_1_pixel = (text_1_lx < 210) &&
+    wire text_1_pixel = (text_1_lx < 224) &&
         (text_1_ly < 14) && (text_1_col < 5) &&
         text_1_glyph[4-text_1_col];
 
-    wire [10:0] text_2_lx = pixel_x - 11'd56;
-    wire [9:0] text_2_ly = pixel_y - 10'd112;
+    wire [10:0] text_2_lx = pixel_x - 11'd32;
+    wire [9:0] text_2_ly = pixel_y - 10'd80;
     wire [7:0] text_2_index = text_2_lx / 16;
     reg [7:0] text_2_char;
     always @(*) begin
@@ -337,12 +353,12 @@ module ui_generated_scene (
     wire [2:0] text_2_row = text_2_ly / 2;
     wire [2:0] text_2_col = (text_2_lx % 16) / 2;
     wire [4:0] text_2_glyph = font5x7(text_2_char, text_2_row);
-    wire text_2_pixel = (text_2_lx < 96) &&
+    wire text_2_pixel = (text_2_lx < 64) &&
         (text_2_ly < 14) && (text_2_col < 5) &&
         text_2_glyph[4-text_2_col];
 
-    wire [10:0] text_3_lx = pixel_x - 11'd152;
-    wire [9:0] text_3_ly = pixel_y - 10'd112;
+    wire [10:0] text_3_lx = pixel_x - 11'd112;
+    wire [9:0] text_3_ly = pixel_y - 10'd80;
     wire [7:0] text_3_index = text_3_lx / 16;
     reg [7:0] text_3_char;
     always @(*) begin
@@ -383,13 +399,13 @@ module ui_generated_scene (
     wire [2:0] text_3_row = text_3_ly / 2;
     wire [2:0] text_3_col = (text_3_lx % 16) / 2;
     wire [4:0] text_3_glyph = font5x7(text_3_char, text_3_row);
-    wire text_3_pixel = (text_3_lx < 720) &&
+    wire text_3_pixel = (text_3_lx < 648) &&
         (text_3_ly < 14) && (text_3_col < 5) &&
         text_3_glyph[4-text_3_col];
 
-    wire [10:0] text_4_lx = pixel_x - 11'd56;
-    wire [9:0] text_4_ly = pixel_y - 10'd164;
-    wire [7:0] text_4_index = text_4_lx / 16;
+    wire [10:0] text_4_lx = pixel_x - 11'd32;
+    wire [9:0] text_4_ly = pixel_y - 10'd124;
+    wire [7:0] text_4_index = text_4_lx / 8;
     reg [7:0] text_4_char;
     always @(*) begin
         case (text_4_index)
@@ -404,18 +420,24 @@ module ui_generated_scene (
             8'd8: text_4_char = 8'd32;
             8'd9: text_4_char = 8'd80;
             8'd10: text_4_char = 8'd82;
+            8'd11: text_4_char = 8'd79;
+            8'd12: text_4_char = 8'd71;
+            8'd13: text_4_char = 8'd82;
+            8'd14: text_4_char = 8'd69;
+            8'd15: text_4_char = 8'd83;
+            8'd16: text_4_char = 8'd83;
             default: text_4_char = 8'd32;
         endcase
     end
-    wire [2:0] text_4_row = text_4_ly / 2;
-    wire [2:0] text_4_col = (text_4_lx % 16) / 2;
+    wire [2:0] text_4_row = text_4_ly / 1;
+    wire [2:0] text_4_col = (text_4_lx % 8) / 1;
     wire [4:0] text_4_glyph = font5x7(text_4_char, text_4_row);
-    wire text_4_pixel = (text_4_lx < 180) &&
-        (text_4_ly < 14) && (text_4_col < 5) &&
+    wire text_4_pixel = (text_4_lx < 176) &&
+        (text_4_ly < 7) && (text_4_col < 5) &&
         text_4_glyph[4-text_4_col];
 
-    wire [10:0] text_5_lx = pixel_x - 11'd56;
-    wire [9:0] text_5_ly = pixel_y - 10'd290;
+    wire [10:0] text_5_lx = pixel_x - 11'd32;
+    wire [9:0] text_5_ly = pixel_y - 10'd198;
     wire [7:0] text_5_index = text_5_lx / 16;
     reg [7:0] text_5_char;
     always @(*) begin
@@ -441,12 +463,12 @@ module ui_generated_scene (
     wire [2:0] text_5_row = text_5_ly / 2;
     wire [2:0] text_5_col = (text_5_lx % 16) / 2;
     wire [4:0] text_5_glyph = font5x7(text_5_char, text_5_row);
-    wire text_5_pixel = (text_5_lx < 260) &&
+    wire text_5_pixel = (text_5_lx < 280) &&
         (text_5_ly < 14) && (text_5_col < 5) &&
         text_5_glyph[4-text_5_col];
 
-    wire [10:0] text_6_lx = pixel_x - 11'd56;
-    wire [9:0] text_6_ly = pixel_y - 10'd330;
+    wire [10:0] text_6_lx = pixel_x - 11'd32;
+    wire [9:0] text_6_ly = pixel_y - 10'd232;
     wire [7:0] text_6_index = text_6_lx / 8;
     reg [7:0] text_6_char;
     always @(*) begin
@@ -464,8 +486,8 @@ module ui_generated_scene (
         (text_6_ly < 7) && (text_6_col < 5) &&
         text_6_glyph[4-text_6_col];
 
-    wire [10:0] text_7_lx = pixel_x - 11'd56;
-    wire [9:0] text_7_ly = pixel_y - 10'd366;
+    wire [10:0] text_7_lx = pixel_x - 11'd32;
+    wire [9:0] text_7_ly = pixel_y - 10'd254;
     wire [7:0] text_7_index = text_7_lx / 8;
     reg [7:0] text_7_char;
     always @(*) begin
@@ -483,8 +505,8 @@ module ui_generated_scene (
         (text_7_ly < 7) && (text_7_col < 5) &&
         text_7_glyph[4-text_7_col];
 
-    wire [10:0] text_8_lx = pixel_x - 11'd56;
-    wire [9:0] text_8_ly = pixel_y - 10'd402;
+    wire [10:0] text_8_lx = pixel_x - 11'd32;
+    wire [9:0] text_8_ly = pixel_y - 10'd276;
     wire [7:0] text_8_index = text_8_lx / 8;
     reg [7:0] text_8_char;
     always @(*) begin
@@ -502,8 +524,8 @@ module ui_generated_scene (
         (text_8_ly < 7) && (text_8_col < 5) &&
         text_8_glyph[4-text_8_col];
 
-    wire [10:0] text_9_lx = pixel_x - 11'd56;
-    wire [9:0] text_9_ly = pixel_y - 10'd438;
+    wire [10:0] text_9_lx = pixel_x - 11'd32;
+    wire [9:0] text_9_ly = pixel_y - 10'd298;
     wire [7:0] text_9_index = text_9_lx / 8;
     reg [7:0] text_9_char;
     always @(*) begin
@@ -521,8 +543,8 @@ module ui_generated_scene (
         (text_9_ly < 7) && (text_9_col < 5) &&
         text_9_glyph[4-text_9_col];
 
-    wire [10:0] text_10_lx = pixel_x - 11'd56;
-    wire [9:0] text_10_ly = pixel_y - 10'd474;
+    wire [10:0] text_10_lx = pixel_x - 11'd32;
+    wire [9:0] text_10_ly = pixel_y - 10'd320;
     wire [7:0] text_10_index = text_10_lx / 8;
     reg [7:0] text_10_char;
     always @(*) begin
@@ -540,8 +562,8 @@ module ui_generated_scene (
         (text_10_ly < 7) && (text_10_col < 5) &&
         text_10_glyph[4-text_10_col];
 
-    wire [10:0] text_11_lx = pixel_x - 11'd56;
-    wire [9:0] text_11_ly = pixel_y - 10'd510;
+    wire [10:0] text_11_lx = pixel_x - 11'd32;
+    wire [9:0] text_11_ly = pixel_y - 10'd342;
     wire [7:0] text_11_index = text_11_lx / 8;
     reg [7:0] text_11_char;
     always @(*) begin
@@ -559,8 +581,8 @@ module ui_generated_scene (
         (text_11_ly < 7) && (text_11_col < 5) &&
         text_11_glyph[4-text_11_col];
 
-    wire [10:0] text_12_lx = pixel_x - 11'd848;
-    wire [9:0] text_12_ly = pixel_y - 10'd290;
+    wire [10:0] text_12_lx = pixel_x - 11'd520;
+    wire [9:0] text_12_ly = pixel_y - 10'd198;
     wire [7:0] text_12_index = text_12_lx / 16;
     reg [7:0] text_12_char;
     always @(*) begin
@@ -570,28 +592,24 @@ module ui_generated_scene (
             8'd2: text_12_char = 8'd84;
             8'd3: text_12_char = 8'd79;
             8'd4: text_12_char = 8'd32;
-            8'd5: text_12_char = 8'd80;
-            8'd6: text_12_char = 8'd76;
+            8'd5: text_12_char = 8'd83;
+            8'd6: text_12_char = 8'd84;
             8'd7: text_12_char = 8'd65;
-            8'd8: text_12_char = 8'd89;
-            8'd9: text_12_char = 8'd32;
+            8'd8: text_12_char = 8'd84;
+            8'd9: text_12_char = 8'd85;
             8'd10: text_12_char = 8'd83;
-            8'd11: text_12_char = 8'd84;
-            8'd12: text_12_char = 8'd65;
-            8'd13: text_12_char = 8'd84;
-            8'd14: text_12_char = 8'd85;
             default: text_12_char = 8'd32;
         endcase
     end
     wire [2:0] text_12_row = text_12_ly / 2;
     wire [2:0] text_12_col = (text_12_lx % 16) / 2;
     wire [4:0] text_12_glyph = font5x7(text_12_char, text_12_row);
-    wire text_12_pixel = (text_12_lx < 240) &&
+    wire text_12_pixel = (text_12_lx < 248) &&
         (text_12_ly < 14) && (text_12_col < 5) &&
         text_12_glyph[4-text_12_col];
 
-    wire [10:0] text_13_lx = pixel_x - 11'd848;
-    wire [9:0] text_13_ly = pixel_y - 10'd338;
+    wire [10:0] text_13_lx = pixel_x - 11'd520;
+    wire [9:0] text_13_ly = pixel_y - 10'd234;
     wire [7:0] text_13_index = text_13_lx / 8;
     reg [7:0] text_13_char;
     always @(*) begin
@@ -615,12 +633,12 @@ module ui_generated_scene (
     wire [2:0] text_13_row = text_13_ly / 1;
     wire [2:0] text_13_col = (text_13_lx % 8) / 1;
     wire [4:0] text_13_glyph = font5x7(text_13_char, text_13_row);
-    wire text_13_pixel = (text_13_lx < 180) &&
+    wire text_13_pixel = (text_13_lx < 248) &&
         (text_13_ly < 7) && (text_13_col < 5) &&
         text_13_glyph[4-text_13_col];
 
-    wire [10:0] text_14_lx = pixel_x - 11'd848;
-    wire [9:0] text_14_ly = pixel_y - 10'd418;
+    wire [10:0] text_14_lx = pixel_x - 11'd520;
+    wire [9:0] text_14_ly = pixel_y - 10'd296;
     wire [7:0] text_14_index = text_14_lx / 8;
     reg [7:0] text_14_char;
     always @(*) begin
@@ -655,66 +673,66 @@ module ui_generated_scene (
     wire [2:0] text_14_row = text_14_ly / 1;
     wire [2:0] text_14_col = (text_14_lx % 8) / 1;
     wire [4:0] text_14_glyph = font5x7(text_14_char, text_14_row);
-    wire text_14_pixel = (text_14_lx < 260) &&
+    wire text_14_pixel = (text_14_lx < 248) &&
         (text_14_ly < 7) && (text_14_col < 5) &&
         text_14_glyph[4-text_14_col];
 
-    wire [24:0] component_0 = ((pixel_x >= 0) && (pixel_x < 1280) && (pixel_y >= 0) && (pixel_y < 720)) ? {1'b1, 24'h05070C} : 25'd0;
-    wire [24:0] component_1 = ((pixel_x >= 0) && (pixel_x < 1280) && (pixel_y >= 0) && (pixel_y < 64)) ? {1'b1, ((pixel_x < 1) || (pixel_x >= 1279) || (pixel_y < 1) || (pixel_y >= 63)) ? 24'h1E293B : 24'h0F172A} : 25'd0;
-    wire [24:0] component_2 = ((pixel_x >= 32) && (pixel_x < 1248) && (pixel_y >= 92) && (pixel_y < 242)) ? {1'b1, ((pixel_x < 34) || (pixel_x >= 1246) || (pixel_y < 94) || (pixel_y >= 240)) ? 24'h334155 : 24'h0F172A} : 25'd0;
-    wire [24:0] component_3 = ((pixel_x >= 32) && (pixel_x < 792) && (pixel_y >= 270) && (pixel_y < 564)) ? {1'b1, ((pixel_x < 34) || (pixel_x >= 790) || (pixel_y < 272) || (pixel_y >= 562)) ? 24'h334155 : 24'h0F172A} : 25'd0;
-    wire [24:0] component_4 = ((pixel_x >= 824) && (pixel_x < 1248) && (pixel_y >= 270) && (pixel_y < 564)) ? {1'b1, ((pixel_x < 826) || (pixel_x >= 1246) || (pixel_y < 272) || (pixel_y >= 562)) ? 24'h334155 : 24'h0F172A} : 25'd0;
-    wire [24:0] component_5 = ((pixel_x >= 32) && (pixel_x < 1248) && (pixel_y >= 594) && (pixel_y < 688)) ? {1'b1, ((pixel_x < 34) || (pixel_x >= 1246) || (pixel_y < 596) || (pixel_y >= 686)) ? 24'h334155 : 24'h0F172A} : 25'd0;
+    wire [24:0] component_0 = ((pixel_x >= 0) && (pixel_x < 800) && (pixel_y >= 0) && (pixel_y < 480)) ? {1'b1, 24'h05070C} : 25'd0;
+    wire [24:0] component_1 = ((pixel_x >= 0) && (pixel_x < 800) && (pixel_y >= 0) && (pixel_y < 48)) ? {1'b1, ((pixel_x < 1) || (pixel_x >= 799) || (pixel_y < 1) || (pixel_y >= 47)) ? 24'h1E293B : 24'h0F172A} : 25'd0;
+    wire [24:0] component_2 = ((pixel_x >= 16) && (pixel_x < 784) && (pixel_y >= 64) && (pixel_y < 168)) ? {1'b1, ((pixel_x < 18) || (pixel_x >= 782) || (pixel_y < 66) || (pixel_y >= 166)) ? 24'h334155 : 24'h0F172A} : 25'd0;
+    wire [24:0] component_3 = ((pixel_x >= 16) && (pixel_x < 488) && (pixel_y >= 184) && (pixel_y < 376)) ? {1'b1, ((pixel_x < 18) || (pixel_x >= 486) || (pixel_y < 186) || (pixel_y >= 374)) ? 24'h334155 : 24'h0F172A} : 25'd0;
+    wire [24:0] component_4 = ((pixel_x >= 504) && (pixel_x < 784) && (pixel_y >= 184) && (pixel_y < 376)) ? {1'b1, ((pixel_x < 506) || (pixel_x >= 782) || (pixel_y < 186) || (pixel_y >= 374)) ? 24'h334155 : 24'h0F172A} : 25'd0;
+    wire [24:0] component_5 = ((pixel_x >= 16) && (pixel_x < 784) && (pixel_y >= 392) && (pixel_y < 464)) ? {1'b1, ((pixel_x < 18) || (pixel_x >= 782) || (pixel_y < 394) || (pixel_y >= 462)) ? 24'h334155 : 24'h0F172A} : 25'd0;
     wire [24:0] component_6 = text_0_pixel ? {1'b1, 24'hE2E8F0} : 25'd0;
     wire [24:0] component_7 = text_1_pixel ? {1'b1, 24'h38BDF8} : 25'd0;
     wire [24:0] component_8 = text_2_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
     wire [24:0] component_9 = text_3_pixel ? {1'b1, 24'hF1F5F9} : 25'd0;
     wire [24:0] component_10 = text_4_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_11 = ((pixel_x >= 256) && (pixel_x < 1192) && (pixel_y >= 166) && (pixel_y < 190)) ? {1'b1, ((pixel_x - 256) < bar_0_fill) ? 24'h38BDF8 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_11 = ((pixel_x >= 224) && (pixel_x < 760) && (pixel_y >= 122) && (pixel_y < 146)) ? {1'b1, ((pixel_x - 224) < bar_0_fill) ? 24'h38BDF8 : 24'h1E293B} : 25'd0;
     wire [24:0] component_12 = text_5_pixel ? {1'b1, 24'hE2E8F0} : 25'd0;
     wire [24:0] component_13 = text_6_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_14 = ((pixel_x >= 112) && (pixel_x < 744) && (pixel_y >= 330) && (pixel_y < 348)) ? {1'b1, ((pixel_x - 112) < bar_1_fill) ? 24'h22C55E : 24'h1E293B} : 25'd0;
+    wire [24:0] component_14 = ((pixel_x >= 88) && (pixel_x < 472) && (pixel_y >= 232) && (pixel_y < 246)) ? {1'b1, ((pixel_x - 88) < bar_1_fill) ? 24'h22C55E : 24'h1E293B} : 25'd0;
     wire [24:0] component_15 = text_7_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_16 = ((pixel_x >= 112) && (pixel_x < 744) && (pixel_y >= 366) && (pixel_y < 384)) ? {1'b1, ((pixel_x - 112) < bar_2_fill) ? 24'h84CC16 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_16 = ((pixel_x >= 88) && (pixel_x < 472) && (pixel_y >= 254) && (pixel_y < 268)) ? {1'b1, ((pixel_x - 88) < bar_2_fill) ? 24'h84CC16 : 24'h1E293B} : 25'd0;
     wire [24:0] component_17 = text_8_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_18 = ((pixel_x >= 112) && (pixel_x < 744) && (pixel_y >= 402) && (pixel_y < 420)) ? {1'b1, ((pixel_x - 112) < bar_3_fill) ? 24'hEAB308 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_18 = ((pixel_x >= 88) && (pixel_x < 472) && (pixel_y >= 276) && (pixel_y < 290)) ? {1'b1, ((pixel_x - 88) < bar_3_fill) ? 24'hEAB308 : 24'h1E293B} : 25'd0;
     wire [24:0] component_19 = text_9_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_20 = ((pixel_x >= 112) && (pixel_x < 744) && (pixel_y >= 438) && (pixel_y < 456)) ? {1'b1, ((pixel_x - 112) < bar_4_fill) ? 24'hF97316 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_20 = ((pixel_x >= 88) && (pixel_x < 472) && (pixel_y >= 298) && (pixel_y < 312)) ? {1'b1, ((pixel_x - 88) < bar_4_fill) ? 24'hF97316 : 24'h1E293B} : 25'd0;
     wire [24:0] component_21 = text_10_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_22 = ((pixel_x >= 112) && (pixel_x < 744) && (pixel_y >= 474) && (pixel_y < 492)) ? {1'b1, ((pixel_x - 112) < bar_5_fill) ? 24'hA855F7 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_22 = ((pixel_x >= 88) && (pixel_x < 472) && (pixel_y >= 320) && (pixel_y < 334)) ? {1'b1, ((pixel_x - 88) < bar_5_fill) ? 24'hA855F7 : 24'h1E293B} : 25'd0;
     wire [24:0] component_23 = text_11_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_24 = ((pixel_x >= 112) && (pixel_x < 744) && (pixel_y >= 510) && (pixel_y < 528)) ? {1'b1, ((pixel_x - 112) < bar_6_fill) ? 24'hEC4899 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_24 = ((pixel_x >= 88) && (pixel_x < 472) && (pixel_y >= 342) && (pixel_y < 356)) ? {1'b1, ((pixel_x - 88) < bar_6_fill) ? 24'hEC4899 : 24'h1E293B} : 25'd0;
     wire [24:0] component_25 = text_12_pixel ? {1'b1, 24'hE2E8F0} : 25'd0;
     wire [24:0] component_26 = text_13_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_27 = ((pixel_x >= 848) && (pixel_x < 1200) && (pixel_y >= 366) && (pixel_y < 384)) ? {1'b1, ((pixel_x - 848) < bar_7_fill) ? 24'h14B8A6 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_27 = ((pixel_x >= 520) && (pixel_x < 768) && (pixel_y >= 260) && (pixel_y < 274)) ? {1'b1, ((pixel_x - 520) < bar_7_fill) ? 24'h14B8A6 : 24'h1E293B} : 25'd0;
     wire [24:0] component_28 = text_14_pixel ? {1'b1, 24'h94A3B8} : 25'd0;
-    wire [24:0] component_29 = ((pixel_x >= 848) && (pixel_x < 952) && (pixel_y >= 450) && (pixel_y < 468)) ? {1'b1, ((pixel_x - 848) < bar_8_fill) ? 24'hEF4444 : 24'h1E293B} : 25'd0;
-    wire [24:0] component_30 = ((pixel_x >= 972) && (pixel_x < 1076) && (pixel_y >= 450) && (pixel_y < 468)) ? {1'b1, ((pixel_x - 972) < bar_9_fill) ? 24'hEF4444 : 24'h1E293B} : 25'd0;
-    wire [24:0] component_31 = ((pixel_x >= 1096) && (pixel_x < 1200) && (pixel_y >= 450) && (pixel_y < 468)) ? {1'b1, ((pixel_x - 1096) < bar_10_fill) ? 24'hEF4444 : 24'h1E293B} : 25'd0;
-    wire [24:0] component_32 = ((pixel_x >= 52) && (pixel_x < 101) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 52) ? 24'h202632 : (note_active[48] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_33 = ((pixel_x >= 101) && (pixel_x < 150) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 101) ? 24'h202632 : (note_active[49] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_34 = ((pixel_x >= 150) && (pixel_x < 199) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 150) ? 24'h202632 : (note_active[50] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_35 = ((pixel_x >= 199) && (pixel_x < 248) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 199) ? 24'h202632 : (note_active[51] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_36 = ((pixel_x >= 248) && (pixel_x < 297) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 248) ? 24'h202632 : (note_active[52] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_37 = ((pixel_x >= 297) && (pixel_x < 346) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 297) ? 24'h202632 : (note_active[53] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_38 = ((pixel_x >= 346) && (pixel_x < 395) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 346) ? 24'h202632 : (note_active[54] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_39 = ((pixel_x >= 395) && (pixel_x < 444) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 395) ? 24'h202632 : (note_active[55] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_40 = ((pixel_x >= 444) && (pixel_x < 493) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 444) ? 24'h202632 : (note_active[56] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_41 = ((pixel_x >= 493) && (pixel_x < 542) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 493) ? 24'h202632 : (note_active[57] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_42 = ((pixel_x >= 542) && (pixel_x < 591) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 542) ? 24'h202632 : (note_active[58] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_43 = ((pixel_x >= 591) && (pixel_x < 640) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 591) ? 24'h202632 : (note_active[59] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_44 = ((pixel_x >= 640) && (pixel_x < 689) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 640) ? 24'h202632 : (note_active[60] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_45 = ((pixel_x >= 689) && (pixel_x < 738) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 689) ? 24'h202632 : (note_active[61] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_46 = ((pixel_x >= 738) && (pixel_x < 787) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 738) ? 24'h202632 : (note_active[62] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_47 = ((pixel_x >= 787) && (pixel_x < 836) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 787) ? 24'h202632 : (note_active[63] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_48 = ((pixel_x >= 836) && (pixel_x < 885) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 836) ? 24'h202632 : (note_active[64] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_49 = ((pixel_x >= 885) && (pixel_x < 934) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 885) ? 24'h202632 : (note_active[65] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_50 = ((pixel_x >= 934) && (pixel_x < 983) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 934) ? 24'h202632 : (note_active[66] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_51 = ((pixel_x >= 983) && (pixel_x < 1032) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 983) ? 24'h202632 : (note_active[67] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_52 = ((pixel_x >= 1032) && (pixel_x < 1081) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 1032) ? 24'h202632 : (note_active[68] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_53 = ((pixel_x >= 1081) && (pixel_x < 1130) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 1081) ? 24'h202632 : (note_active[69] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
-    wire [24:0] component_54 = ((pixel_x >= 1130) && (pixel_x < 1179) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 1130) ? 24'h202632 : (note_active[70] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
-    wire [24:0] component_55 = ((pixel_x >= 1179) && (pixel_x < 1228) && (pixel_y >= 612) && (pixel_y < 670)) ? {1'b1, (pixel_x == 1179) ? 24'h202632 : (note_active[71] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_29 = ((pixel_x >= 520) && (pixel_x < 592) && (pixel_y >= 340) && (pixel_y < 354)) ? {1'b1, ((pixel_x - 520) < bar_8_fill) ? 24'hEF4444 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_30 = ((pixel_x >= 608) && (pixel_x < 680) && (pixel_y >= 340) && (pixel_y < 354)) ? {1'b1, ((pixel_x - 608) < bar_9_fill) ? 24'hEF4444 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_31 = ((pixel_x >= 696) && (pixel_x < 768) && (pixel_y >= 340) && (pixel_y < 354)) ? {1'b1, ((pixel_x - 696) < bar_10_fill) ? 24'hEF4444 : 24'h1E293B} : 25'd0;
+    wire [24:0] component_32 = ((pixel_x >= 32) && (pixel_x < 62) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 32) ? 24'h202632 : (note_active[48] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_33 = ((pixel_x >= 62) && (pixel_x < 93) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 62) ? 24'h202632 : (note_active[49] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_34 = ((pixel_x >= 93) && (pixel_x < 124) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 93) ? 24'h202632 : (note_active[50] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_35 = ((pixel_x >= 124) && (pixel_x < 154) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 124) ? 24'h202632 : (note_active[51] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_36 = ((pixel_x >= 154) && (pixel_x < 185) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 154) ? 24'h202632 : (note_active[52] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_37 = ((pixel_x >= 185) && (pixel_x < 216) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 185) ? 24'h202632 : (note_active[53] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_38 = ((pixel_x >= 216) && (pixel_x < 246) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 216) ? 24'h202632 : (note_active[54] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_39 = ((pixel_x >= 246) && (pixel_x < 277) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 246) ? 24'h202632 : (note_active[55] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_40 = ((pixel_x >= 277) && (pixel_x < 308) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 277) ? 24'h202632 : (note_active[56] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_41 = ((pixel_x >= 308) && (pixel_x < 338) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 308) ? 24'h202632 : (note_active[57] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_42 = ((pixel_x >= 338) && (pixel_x < 369) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 338) ? 24'h202632 : (note_active[58] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_43 = ((pixel_x >= 369) && (pixel_x < 400) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 369) ? 24'h202632 : (note_active[59] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_44 = ((pixel_x >= 400) && (pixel_x < 430) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 400) ? 24'h202632 : (note_active[60] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_45 = ((pixel_x >= 430) && (pixel_x < 461) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 430) ? 24'h202632 : (note_active[61] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_46 = ((pixel_x >= 461) && (pixel_x < 492) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 461) ? 24'h202632 : (note_active[62] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_47 = ((pixel_x >= 492) && (pixel_x < 522) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 492) ? 24'h202632 : (note_active[63] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_48 = ((pixel_x >= 522) && (pixel_x < 553) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 522) ? 24'h202632 : (note_active[64] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_49 = ((pixel_x >= 553) && (pixel_x < 584) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 553) ? 24'h202632 : (note_active[65] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_50 = ((pixel_x >= 584) && (pixel_x < 614) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 584) ? 24'h202632 : (note_active[66] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_51 = ((pixel_x >= 614) && (pixel_x < 645) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 614) ? 24'h202632 : (note_active[67] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_52 = ((pixel_x >= 645) && (pixel_x < 676) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 645) ? 24'h202632 : (note_active[68] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_53 = ((pixel_x >= 676) && (pixel_x < 706) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 676) ? 24'h202632 : (note_active[69] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
+    wire [24:0] component_54 = ((pixel_x >= 706) && (pixel_x < 737) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 706) ? 24'h202632 : (note_active[70] ? 24'h38BDF8 : 24'h111827)} : 25'd0;
+    wire [24:0] component_55 = ((pixel_x >= 737) && (pixel_x < 768) && (pixel_y >= 404) && (pixel_y < 452)) ? {1'b1, (pixel_x == 737) ? 24'h202632 : (note_active[71] ? 24'h38BDF8 : 24'hF1F5F9)} : 25'd0;
 
     wire [24:0] compose_l0_0 = component_1[24] ? component_1 : component_0;
     wire [24:0] compose_l0_1 = component_3[24] ? component_3 : component_2;

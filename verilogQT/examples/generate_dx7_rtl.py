@@ -32,8 +32,8 @@ def load_scene_from_json(json_path: Path) -> UIScene:
 
     scene = UIScene(
         name=data.get("name", "scene"),
-        width=data.get("width", 1280),
-        height=data.get("height", 720),
+        width=data.get("width", 800),
+        height=data.get("height", 480),
         interactions=list(data.get("interactions", [])),
     )
 

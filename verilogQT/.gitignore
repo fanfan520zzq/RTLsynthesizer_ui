@@ -13,6 +13,7 @@ Thumbs.db
 # Generated examples and local render output
 examples/generated_rtl/
 test_output.png
+test_output/
 
 # Logs and temporary files
 *.log

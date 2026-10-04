@@ -7,6 +7,8 @@ RTL Pixel Renderer
 """
 
 import numpy as np
+from dataclasses import replace
+from functools import lru_cache
 import re
 from pathlib import Path
 from typing import Tuple, Optional, Dict, Any, List
@@ -27,7 +29,7 @@ class PixelRenderer:
         self.height = height
         self.framebuffer = np.zeros((height, width, 3), dtype=np.uint8)
 
-    def render_scene(self, scene: UIScene, ui_state: Dict[str, Any]):
+    def render_scene(self, scene: UIScene, ui_state: Dict[str, Any], page=None):
         """渲染整个场景"""
         if scene.width <= 0 or scene.height <= 0:
             raise ValueError("scene width and height must be positive")
@@ -43,14 +45,19 @@ class PixelRenderer:
         self.framebuffer[:, :] = [bg.r, bg.g, bg.b]
 
         # 按 layer 排序渲染
-        widgets = sorted(scene.widgets, key=lambda w: w.layer)
+        widgets = sorted(scene.visible_widgets(page), key=lambda w: w.layer)
 
         for widget in widgets:
             if not widget.visible:
                 continue
 
             if widget.type == "panel":
-                self._render_panel(widget)
+                active_page = scene.initial_page if page is None else page
+                action = scene.local_actions.get(widget.name)
+                if action and action['target'] == active_page:
+                    self._render_panel(replace(widget, border_width=max(3, widget.border_width)))
+                else:
+                    self._render_panel(widget)
             elif widget.type == "text":
                 self._render_text(widget)
             elif widget.type == "bar":
@@ -132,32 +139,65 @@ class PixelRenderer:
                 self.framebuffer[y1:y2, max(x1, x2-bw):x2] = [border.r, border.g, border.b]
 
     def _render_text(self, widget: TextWidget):
-        """Render fixed 8x16 ASCII glyphs, matching the generated font ROM."""
-        try:
-            widget.text.encode("ascii")
-        except UnicodeEncodeError:
+        """PC字号按像素缩放；裁剪到文字控件及屏幕内，不覆盖邻居。"""
+        pixels = self.text_pixels(widget)
+        x1, y1 = max(0, widget.x), max(0, widget.y)
+        x2 = min(self.width, widget.x + widget.width)
+        y2 = min(self.height, widget.y + widget.height)
+        if x1 >= x2 or y1 >= y2:
             return
-        text_width = len(widget.text) * 8
-        if widget.align == "center":
-            x_start = widget.x + max(0, widget.width - text_width) // 2
-        elif widget.align == "right":
-            x_start = widget.x + max(0, widget.width - text_width)
-        else:
-            x_start = widget.x
-        glyphs = self._font_glyphs()
-        color = [widget.color.r, widget.color.g, widget.color.b]
-        for char_index, char in enumerate(widget.text):
-            bitmap = glyphs.get(ord(char), glyphs.get(32, [0] * 16))
-            for row, bits in enumerate(bitmap):
-                y = widget.y + row
-                if not (0 <= y < self.height):
-                    continue
-                for col in range(8):
-                    x = x_start + char_index * 8 + col
-                    if 0 <= x < self.width and (bits & (1 << (7 - col))):
-                        self.framebuffer[y, x] = color
+        source = pixels[y1-widget.y:y2-widget.y, x1-widget.x:x2-widget.x]
+        target = self.framebuffer[y1:y2, x1:x2]
+        mask = source[:, :, 3] != 0
+        target[mask] = source[:, :, :3][mask]
+
+    @classmethod
+    def text_pixels(cls, widget: TextWidget):
+        """Transparent RGBA used by both the designer and PC runtime.
+
+        The existing 8x16 ASCII font is kept; 16px remains pixel-identical.
+        Arbitrary PC sizes use nearest-neighbor scaling, not the FPGA
+        generator's separate two-step 5x7 font implementation.
+        """
+        return cls._scaled_text(widget.text, int(widget.font_size),
+                                max(0, int(widget.width)), max(0, int(widget.height)),
+                                widget.align, widget.color.r, widget.color.g, widget.color.b)
 
     @staticmethod
+    @lru_cache(maxsize=64)
+    def _scaled_text(text, font_size, width, height, align, red, green, blue):
+        pixels = np.zeros((height, width, 4), dtype=np.uint8)
+        # Guard manually authored JSON; designer offers the useful 8–72 range.
+        size = max(1, min(256, font_size))
+        cell_width = max(1, (size + 1) // 2)
+        try:
+            text.encode('ascii')
+        except UnicodeEncodeError:
+            return pixels
+        text_width = len(text) * cell_width
+        if align == 'center':
+            x_start = max(0, width - text_width) // 2
+        elif align == 'right':
+            x_start = max(0, width - text_width)
+        else:
+            x_start = 0
+        glyphs = PixelRenderer._font_glyphs()
+        rows = np.arange(min(size, height)) * 16 // size
+        cols = np.arange(cell_width) * 8 // cell_width
+        for char_index, char in enumerate(text):
+            x = x_start + char_index * cell_width
+            if x >= width:
+                break
+            bitmap = glyphs.get(ord(char), glyphs.get(32, [0] * 16))
+            bits = np.asarray(bitmap, dtype=np.uint8)[rows]
+            count = min(cell_width, width - x)
+            mask = ((bits[:, None] >> (7 - cols[:count])) & 1) != 0
+            pixels[:len(rows), x:x+count][mask] = (red, green, blue, 255)
+        pixels.setflags(write=False)
+        return pixels
+
+    @staticmethod
+    @lru_cache(maxsize=1)
     def _font_glyphs():
         """Return a compact deterministic 8x16 ASCII font used by RTL."""
         # Parse the exact .mem file shipped with the generated RTL first.  It
@@ -415,7 +455,7 @@ class PixelRenderer:
         end_y = int(cy + indicator_length * np.sin(rad))
 
         # 绘制指示线
-        self._draw_line(cx, cy, end_x, end_y, fg, 3)
+        self._draw_line(cx, cy, end_x, end_y, widget.pointer_color, 3)
 
     def _render_keyboard(self, widget: KeyboardWidget, key_states: List[bool]):
         """渲染键盘"""

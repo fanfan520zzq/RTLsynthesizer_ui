@@ -45,8 +45,15 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description='FPGA UI Designer - Tang Mega 60K HDMI UI 设计工具')
-    parser.add_argument('--preview', action='store_true',
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument('--preview', action='store_true',
                         help='启动交互式预览窗口（测试用）')
+    modes.add_argument('--loopback', action='store_true',
+                        help='启动 FPGA 串口回环窗口')
+    modes.add_argument('--dimension', action='store_true',
+                       help='使用现有 ASCII 命令控制 Dimension 自动演奏工程')
+    modes.add_argument('--scene-control', action='store_true',
+                       help='通过可编辑 JSON 场景控制 Dimension 多文件工程')
     parser.add_argument('--scene', type=str, default=None,
                         help='指定场景文件路径（JSON格式）')
 
@@ -55,7 +62,30 @@ def main():
     if not check_dependencies():
         sys.exit(1)
 
-    if args.preview:
+    if args.scene_control:
+        from PySide6.QtWidgets import QApplication
+        from designer.scene_runtime import SceneRuntimeWindow
+        from designer.ui_schema import UIScene
+        app = QApplication(sys.argv)
+        scene = UIScene.from_json(args.scene) if args.scene else None
+        window = SceneRuntimeWindow(scene)
+        window.show()
+        sys.exit(app.exec())
+    elif args.dimension:
+        from PySide6.QtWidgets import QApplication
+        from designer.dimension_window import DimensionWindow
+        app = QApplication(sys.argv)
+        window = DimensionWindow()
+        window.show()
+        sys.exit(app.exec())
+    elif args.loopback:
+        from PySide6.QtWidgets import QApplication
+        from designer.loopback_window import LoopbackWindow
+        app = QApplication(sys.argv)
+        window = LoopbackWindow()
+        window.show()
+        sys.exit(app.exec())
+    elif args.preview:
         # 启动交互式预览
         print("启动交互式预览...")
         from designer.interactive_preview import InteractivePreviewDialog
@@ -75,7 +105,7 @@ def main():
             scene = UIScene(
                 name="preview_test",
                 width=800,
-                height=600,
+                height=480,
                 bg_color=ColorRGB(10, 10, 10)
             )
 

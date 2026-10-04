@@ -1,0 +1,7 @@
+impl/
+*.gprj.user
+sim/work/
+sim/transcript
+sim/*.wlf
+sim/pcui_smoke.png
+*.log

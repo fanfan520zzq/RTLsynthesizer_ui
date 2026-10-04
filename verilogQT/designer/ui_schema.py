@@ -69,6 +69,8 @@ class Widget:
     visible: bool = True
     layer: int = 0
     name: str = ""
+    # Empty = shared by every page; nonempty = a stable PC page ID.
+    page: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -189,14 +191,56 @@ class IconWidget(Widget):
 class UIScene:
     """完整的 UI 场景"""
     name: str = "default_scene"
-    width: int = 1280
-    height: int = 720
+    width: int = 800
+    height: int = 480
     bg_color: Color = field(default_factory=lambda: Color(5, 7, 12))
     widgets: List[Widget] = field(default_factory=list)
     # Interaction rules are JSON-compatible dictionaries.  Keeping the rule
     # shape data-driven lets the PC preview and RTL generator consume exactly
     # the same behavior definition.
     interactions: List[Dict[str, Any]] = field(default_factory=list)
+    # PC hardware bindings are separate from local/RTL interaction rules.
+    # Keys are stable widget names; layout edits do not change UART commands.
+    pc_bindings: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    pages: List[Dict[str, str]] = field(default_factory=list)
+    initial_page: str = ""
+    # Local navigation never generates UART commands or FPGA feedback.
+    local_actions: Dict[str, Dict[str, str]] = field(default_factory=dict)
+
+    def visible_widgets(self, page=None):
+        page = self.initial_page if page is None else page
+        return [w for w in self.widgets if w.visible and (not w.page or w.page == page)]
+
+    def validate_navigation(self):
+        import re
+        if not isinstance(self.pages, list):
+            raise ValueError('pages 必须是页面列表')
+        ids = []
+        for page in self.pages:
+            if not isinstance(page, dict) or not isinstance(page.get('title'), str):
+                raise ValueError('页面需要 id 和 title')
+            page_id = page.get('id')
+            if not isinstance(page_id, str) or not re.fullmatch(r'[A-Za-z0-9_-]+', page_id):
+                raise ValueError('页面ID只能包含字母、数字、下划线和短横线')
+            if page_id in ids:
+                raise ValueError('页面ID不能重复')
+            ids.append(page_id)
+        if (ids and self.initial_page not in ids) or (not ids and self.initial_page):
+            raise ValueError('默认页必须对应已有页面')
+        for widget in self.widgets:
+            if not isinstance(widget.page, str) or (widget.page and widget.page not in ids):
+                raise ValueError(f'控件所属页面不存在：{widget.name}')
+        if not isinstance(self.local_actions, dict):
+            raise ValueError('local_actions 必须是控件名到本地动作的字典')
+        for name, action in self.local_actions.items():
+            matches = [w for w in self.widgets if w.name == name]
+            if len(matches) != 1 or matches[0].type not in ('panel', 'text'):
+                raise ValueError(f'切页按钮需要唯一的 panel/text 名称：{name}')
+            if (not isinstance(action, dict) or action.get('action') != 'switch_page' or
+                    action.get('target') not in ids):
+                raise ValueError(f'无效切页目标：{name}')
+            if name in self.pc_bindings:
+                raise ValueError(f'控件不能同时绑定切页和串口操作：{name}')
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -206,6 +250,10 @@ class UIScene:
             "bg_color": self.bg_color.to_dict(),
             "widgets": [self._widget_to_dict(w) for w in self.widgets],
             "interactions": self.interactions,
+            "pc_bindings": self.pc_bindings,
+            "pages": self.pages,
+            "initial_page": self.initial_page,
+            "local_actions": self.local_actions,
         }
 
     def _widget_to_dict(self, widget: Widget) -> Dict[str, Any]:
@@ -275,14 +323,20 @@ class UIScene:
                     if key in base_fields
                 }))
 
-        return cls(
+        scene = cls(
             name=data.get("name", "default_scene"),
-            width=data.get("width", 1280),
-            height=data.get("height", 720),
+            width=data.get("width", 800),
+            height=data.get("height", 480),
             bg_color=bg_color,
             widgets=widgets,
             interactions=list(data.get("interactions", [])),
+            pc_bindings=data.get("pc_bindings", {}),
+            pages=data.get('pages', []),
+            initial_page=data.get('initial_page', ''),
+            local_actions=data.get('local_actions', {}),
         )
+        scene.validate_navigation()
+        return scene
 
     @classmethod
     def from_json(cls, filepath: str) -> 'UIScene':

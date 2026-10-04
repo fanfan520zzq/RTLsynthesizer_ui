@@ -138,6 +138,10 @@ class CompactRTLGenerator:
 
     @classmethod
     def validate(cls, scene):
+        if getattr(scene, 'pc_bindings', {}):
+            raise ValueError('PC UART bindings cannot be exported as HDMI RTL; use Scene FPGA Control')
+        if scene.pages or scene.local_actions or any(w.page for w in scene.widgets):
+            raise ValueError('PC多页导航不能导出为HDMI RTL；请使用PC运行UI')
         if not (1 <= scene.width <= 2048 and 1 <= scene.height <= 1024):
             raise ValueError("scene resolution exceeds pixel_x[10:0]/pixel_y[9:0]")
         unsupported = [w for w in scene.widgets if w.visible and not isinstance(w, cls.SUPPORTED)]
@@ -240,7 +244,10 @@ class CompactRTLGenerator:
         for i, w in enumerate(bars):
             slot = self._status_slot(w.source)
             out.append(f"    wire [15:0] bar_{i}_value = ui_status_flat[{slot * 16} +: 16];")
-            out.append(f"    wire [15:0] bar_{i}_fill = (bar_{i}_value[9:0] * 16'd{w.width}) >> 10;")
+            # Keep the full 10-bit value x 16-bit width product BEFORE the
+            # right shift. A 16-bit intermediate wrapped ordinary wide bars.
+            out.append(f"    wire [25:0] bar_{i}_product = bar_{i}_value[9:0] * 16'd{w.width};")
+            out.append(f"    wire [15:0] bar_{i}_fill = bar_{i}_product >> 10;")
         if bars:
             out.append("")
 

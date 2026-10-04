@@ -1,0 +1,138 @@
+`timescale 1ns / 1ps
+// Fixed UI-only contract; generated geometry follows the named PC widgets.
+module ui_ec11_scene (
+    input wire clk,
+    input wire rst_n,
+    input wire frame_start,
+    input wire [10:0] pixel_x,
+    input wire [9:0] pixel_y,
+    input wire [1:0] page,
+    input wire [3:0] focus,
+    input wire editing,
+    input wire [7:0] rate,
+    input wire [7:0] depth,
+    input wire [7:0] width_value,
+    input wire [7:0] mix,
+    input wire [2:0] preset,
+    input wire fx_enable,
+    input wire [2:0] selected_item,
+    input wire [7:0] last_action,
+    input wire [15:0] action_count,
+    output wire [23:0] pixel_rgb
+);
+    // Freeze all displayed state for an entire frame: no torn page/focus.
+    reg [1:0] page_s;
+    reg [3:0] focus_s;
+    reg editing_s;
+    reg [7:0] rate_s, depth_s, width_s, mix_s;
+    reg [2:0] preset_s, selected_s;
+    reg fx_s;
+    reg [7:0] action_s;
+    reg [15:0] count_s;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            page_s<=0; focus_s<=0; editing_s<=0;
+            rate_s<=64; depth_s<=128; width_s<=128; mix_s<=64;
+            preset_s<=0; selected_s<=0; fx_s<=1; action_s<=0; count_s<=0;
+        end else if (frame_start) begin
+            page_s<=page; focus_s<=focus; editing_s<=editing;
+            rate_s<=rate; depth_s<=depth; width_s<=width_value; mix_s<=mix;
+            preset_s<=preset; selected_s<=selected_item; fx_s<=fx_enable;
+            action_s<=last_action; count_s<=action_count;
+        end
+    end
+    reg [511:0] status;
+    always @* begin
+        status=0;
+        status[0*16+:16]={8'd0,width_s};
+        status[1*16+:16]={8'd0,mix_s};
+        status[4*16+:16]={15'd0,fx_s};
+        status[5*16+:16]={13'd0,selected_s};
+        status[7*16+:16]={13'd0,preset_s};
+        status[8*16+:16]={8'd0,action_s};
+        status[9*16+:16]=count_s;
+        // Bit replication maps 0..255 exactly onto 0..1023 without division.
+        status[11*16+:16]={6'd0,rate_s,rate_s[7:6]};
+        status[12*16+:16]={6'd0,depth_s,depth_s[7:6]};
+        status[13*16+:16]={6'd0,width_s,width_s[7:6]};
+        status[14*16+:16]={6'd0,mix_s,mix_s[7:6]};
+        status[15*16+:16]={8'd0,rate_s};
+        status[16*16+:16]={8'd0,depth_s};
+    end
+    wire [23:0] bg0, bg1, bg2;
+    wire [38:0] text0, text1, text2;
+    ui_ec11_page_0 u_sd (
+        .pixel_x(pixel_x),
+        .pixel_y(pixel_y),
+        .ui_status_flat(status),
+        .background_rgb(bg0),
+        .text_descriptor(text0)
+    );
+    ui_ec11_page_1 u_fx (
+        .pixel_x(pixel_x),
+        .pixel_y(pixel_y),
+        .ui_status_flat(status),
+        .background_rgb(bg1),
+        .text_descriptor(text1)
+    );
+    ui_ec11_page_2 u_play (
+        .pixel_x(pixel_x),
+        .pixel_y(pixel_y),
+        .ui_status_flat(status),
+        .background_rgb(bg2),
+        .text_descriptor(text2)
+    );
+    // Pick a page/text descriptor BEFORE the shared synchronous font ROM.
+    wire [38:0] text_now = (page_s==0) ? text0 : (page_s==1) ? text1 : text2;
+    wire [23:0] bg_now = (page_s==0) ? bg0 : (page_s==1) ? bg1 : bg2;
+    wire [7:0] glyph_row;
+    ui_ec11_font_rom u_font (
+        .clk(clk),
+        .char_code(text_now[13:7]),
+        .row(text_now[6:3]),
+        .pixels(glyph_row)
+    );
+    reg [10:0] fx, fw, sx, sw;
+    reg [9:0] fy, fh, sy, sh;
+    always @* begin
+        fx=0; fy=0; fw=0; fh=0;
+        if (focus_s < 3) begin
+            case (focus_s)
+// @FOCUS_NAV_CASES@
+            endcase
+        end else begin
+            case (page_s)
+// @FOCUS_PAGE_CASES@
+            endcase
+        end
+        sx=0; sy=0; sw=0; sh=0;
+        case (page_s)
+// @SELECTED_CASES@
+        endcase
+    end
+    wire focus_hit = (fw != 0) && pixel_x>=fx && pixel_x<fx+fw &&
+        pixel_y>=fy && pixel_y<fy+fh &&
+        (pixel_x<fx+2 || pixel_x>=fx+fw-2 || pixel_y<fy+2 || pixel_y>=fy+fh-2);
+    wire selected_hit = (sw != 0) && pixel_x>=sx && pixel_x<sx+sw &&
+        pixel_y>=sy && pixel_y<sy+sh &&
+        (pixel_x==sx || pixel_x==sx+sw-1 || pixel_y==sy || pixel_y==sy+sh-1);
+    reg focus_q, selected_q, editing_q;
+    reg text_valid_q;
+    reg [23:0] text_color_q, bg_q;
+    reg [2:0] text_col_q;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            focus_q<=0; selected_q<=0; editing_q<=0;
+            text_valid_q<=0; text_color_q<=0; text_col_q<=0; bg_q<=24'h05070C;
+        end else begin
+            focus_q<=focus_hit;
+            selected_q<=selected_hit; editing_q<=editing_s;
+            text_valid_q<=text_now[38]; text_color_q<=text_now[37:14];
+            text_col_q<=text_now[2:0]; bg_q<=bg_now;
+        end
+    end
+    wire [23:0] page_rgb = (text_valid_q && glyph_row[7-text_col_q]) ? text_color_q : bg_q;
+    // ROM, RGB, column and outlines all share the same one-cycle pipeline.
+    assign pixel_rgb = focus_q ? (editing_q ? 24'hFBBF24 : 24'h38BDF8) :
+                       selected_q ? 24'h34D399 : page_rgb;
+endmodule

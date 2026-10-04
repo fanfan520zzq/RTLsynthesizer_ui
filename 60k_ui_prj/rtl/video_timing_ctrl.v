@@ -2,17 +2,17 @@
 
 module video_timing_ctrl #(
 	
-	parameter video_hlength		= 2200,
-	parameter video_vlength		= 1125,
+	parameter video_hlength		= 1056,
+	parameter video_vlength		= 525,
 	parameter video_hsync_pol	= 1,
-	parameter video_hsync_len	= 44,
-	parameter video_hbp_len		= 148,
+	parameter video_hsync_len	= 20,
+	parameter video_hbp_len		= 26,
 	
-	parameter video_h_visible	= 1920,
+	parameter video_h_visible	= 800,
 	parameter video_vsync_pol	= 1,
-	parameter video_vsync_len	= 5,
-	parameter video_vbp_len		= 36,
-	parameter video_v_visible	= 1080,
+	parameter video_vsync_len	= 3,
+	parameter video_vbp_len		= 23,
+	parameter video_v_visible	= 480,
 	
 	parameter sync_v_pos		= 132,
 	parameter sync_h_pos		= 1079
