@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+  <Template>FPGA</Template>
+  <Version>5</Version>
+  <Device name="GW2AR-18C" pn="GW2AR-LV18QN88C8/I7">gw2ar18c-000</Device>
+  <FileList>
+    <File path="rtl/ec11_input.v" type="file.verilog" enable="1"/>
+    <File path="rtl/font_rom.v" type="file.verilog" enable="1"/>
+    <File path="rtl/hdmi_tx.v" type="file.verilog" enable="1"/>
+    <File path="rtl/pll_800x480_template.v" type="file.verilog" enable="1"/>
+    <File path="rtl/spectrum_goertzel128.v" type="file.verilog" enable="1"/>
+    <File path="rtl/test_wave_48k.v" type="file.verilog" enable="1"/>
+    <File path="rtl/tmds_encoder.v" type="file.verilog" enable="1"/>
+    <File path="rtl/tmds_serializer.v" type="file.verilog" enable="1"/>
+    <File path="rtl/top_tang_nano_20k_ui.v" type="file.verilog" enable="1"/>
+    <File path="rtl/ui_renderer_800x480.v" type="file.verilog" enable="1"/>
+    <File path="rtl/ui_state.v" type="file.verilog" enable="1"/>
+    <File path="rtl/video_timing_800x480.v" type="file.verilog" enable="1"/>
+    <File path="constraints/tang_nano_20k.cst" type="file.cst" enable="1"/>
+    <File path="constraints/tang_nano_20k.sdc" type="file.sdc" enable="1"/>
+    <File path="rtl/font_rom.hex" type="file.memory" enable="1"/>
+  </FileList>
+</Project>

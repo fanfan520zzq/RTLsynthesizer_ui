@@ -1,0 +1,26 @@
+// Tang Nano 20K 3921 / GW2AR-LV18QN88C8/I7 template.
+// HDMI pairs are from the official Nano 20K reference: clock 33/34,
+// data0 35/36, data1 37/38, data2 39/40.
+// On the 3921 schematic J6-1/J6-2/J6-3 map to FPGA pins 73/74/75.
+IO_LOC  "clk_27m" 4;
+IO_PORT "clk_27m" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC  "btn_rst_n" 88;
+IO_PORT "btn_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+
+IO_LOC  "tmds_clk_p" 34,33;
+IO_PORT "tmds_clk_p" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "tmds_d_p[0]" 36,35;
+IO_PORT "tmds_d_p[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "tmds_d_p[1]" 38,37;
+IO_PORT "tmds_d_p[1]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "tmds_d_p[2]" 40,39;
+IO_PORT "tmds_d_p[2]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// 3921 schematic: J6-1/J6-2/J6-3 = FPGA pins 73/74/75 in BANK1 (+3V3).
+// A/B/KEY must be <=3.3 V at the FPGA; level-shift a 5 V encoder module.
+IO_LOC "ec11_a" 73;
+IO_PORT "ec11_a" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC "ec11_b" 74;
+IO_PORT "ec11_b" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC "ec11_key_n" 75;
+IO_PORT "ec11_key_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;

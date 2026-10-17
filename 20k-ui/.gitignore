@@ -1,0 +1,27 @@
+# Gowin implementation output and local IDE state
+impl/
+*.gprj.user
+*.log
+
+# Compiled simulation output and waveforms
+sim/*.vvp
+sim/*.vcd
+*.vvp
+*.vcd
+
+# Downloaded board/reference material and one-off analysis captures
+api_list.js
+bbox.html
+bit_*.json
+bitlist.json
+concise_fp.js
+dl_*
+*.dat
+inspect_fp.js
+list_fp.js
+page2-*.png
+parse_bom.js
+pcbdata_*.json
+resp_*.dat
+schematic*.txt
+wiki_nano.html

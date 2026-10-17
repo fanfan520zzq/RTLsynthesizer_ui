@@ -1,0 +1,10 @@
+# 800x480 UI timing and clock plan
+# H: sync 20, back porch 26, active 800, front porch 210 = 1056 pixels
+# V: sync 3, back porch 23, active 480, front porch 19 = 525 lines
+# HS/VS are positive; active video begins at h=46, v=26.
+# Nominal pixel clock = 33.333333 MHz; nominal TMDS serial clock = 166.666667 MHz.
+# 27 MHz crystal integer plan: 27*37/6=166.500 MHz, CLKDIV /5=33.300 MHz.
+# This exact rPLL + CLKDIV configuration is used by the checked-in wrapper and
+# was synthesized and placed/routed with Gowin V1.9.11.03 Education (64-bit).
+# Do not replace CLKDIV with CLKDIVG on GW2AR; the device has no CLKDIVG
+# resource. The 33.300 MHz clock gives 60.065 Hz for 1056x525 timing.

@@ -1,0 +1,11 @@
+# Tang Nano 20K 800x480 timing template.
+# Input crystal: 27 MHz. The 800x480 GitHub mode is nominally 33.333 MHz
+# pixel / 166.667 MHz serial. The checked-in integer PLL template is 33.3 /
+# 166.5 MHz; regenerate the IP and update these periods to the actual output.
+create_clock -name clk_27m -period 37.037 [get_ports {clk_27m}]
+create_clock -name clk_serial -period 6.006 [get_nets {pll/pll_inst/CLKOUT}]
+create_generated_clock -name clk_pixel -source [get_nets {pll/pll_inst/CLKOUT}] \
+    -divide_by 5 [get_nets {pll/clkdiv_inst/CLKOUT}]
+# OSER10 owns the pixel/serial boundary. Do not time fabric paths through it.
+set_clock_groups -asynchronous -group [get_clocks {clk_pixel}] -group [get_clocks {clk_serial}]
+set_false_path -from [get_ports {btn_rst_n}]

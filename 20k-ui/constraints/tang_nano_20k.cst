@@ -1,0 +1,33 @@
+// Tang Nano 20K 3921 constraint file for the 800x480 UI.
+// HDMI, crystal and reset are from the official Sipeed Nano 20K HDMI example.
+// The EC11 assignments below are for the 3921 schematic: J6-1/J6-2/J6-3
+// are FPGA pins 73/74/75 in BANK1, with VCCO = +3V3.
+
+IO_LOC "clk_27m" 4;
+IO_PORT "clk_27m" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+
+IO_LOC "btn_rst_n" 88;
+IO_PORT "btn_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+
+// Gowin maps ELVDS_OBUF.O to the lower pad and OB to the higher pad.
+// The RTL inverts O's input to account for the 3921 board's P/N routing.
+IO_LOC "tmds_clk_p" 33,34;
+// ELVDS_OBUF is the differential output primitive used by the Nano HDMI
+// reference design. Gowin's GW2AR constraint type for this output is the
+// differential LVCMOS33D mode, not LVDS25.
+IO_PORT "tmds_clk_p" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_d_p[0]" 35,36;
+IO_PORT "tmds_d_p[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_d_p[1]" 37,38;
+IO_PORT "tmds_d_p[1]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_d_p[2]" 39,40;
+IO_PORT "tmds_d_p[2]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// EC11 A/B/KEY must be <=3.3 V at the FPGA. A module marked "5V" must either
+// be operated at a verified 3.3 V supply or use 5 V-to-3.3 V level shifting.
+IO_LOC "ec11_a" 73;
+IO_PORT "ec11_a" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC "ec11_b" 74;
+IO_PORT "ec11_b" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC "ec11_key_n" 75;
+IO_PORT "ec11_key_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;

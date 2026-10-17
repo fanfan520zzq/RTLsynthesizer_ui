@@ -1,0 +1,36 @@
+`timescale 1ns / 1ps
+// Eight equal-width RGB color bars for HDMI path diagnosis.
+// The module is combinational and is only meaningful while de is asserted.
+module colorbars_640x480 (
+    input  wire       de,
+    input  wire [9:0] x,
+    input  wire [9:0] y,
+    output reg [7:0] red,
+    output reg [7:0] green,
+    output reg [7:0] blue
+);
+    always @(*) begin
+        red   = 8'h00;
+        green = 8'h00;
+        blue  = 8'h00;
+
+        if (de) begin
+            if (x < 10'd80) begin
+                red = 8'hff; green = 8'hff; blue = 8'hff; // white
+            end else if (x < 10'd160) begin
+                red = 8'hff; green = 8'hff; blue = 8'h00; // yellow
+            end else if (x < 10'd240) begin
+                red = 8'h00; green = 8'hff; blue = 8'hff; // cyan
+            end else if (x < 10'd320) begin
+                red = 8'h00; green = 8'hff; blue = 8'h00; // green
+            end else if (x < 10'd400) begin
+                red = 8'hff; green = 8'h00; blue = 8'hff; // magenta
+            end else if (x < 10'd480) begin
+                red = 8'hff; green = 8'h00; blue = 8'h00; // red
+            end else if (x < 10'd560) begin
+                red = 8'h00; green = 8'h00; blue = 8'hff; // blue
+            end
+            // x >= 560 is black.
+        end
+    end
+endmodule

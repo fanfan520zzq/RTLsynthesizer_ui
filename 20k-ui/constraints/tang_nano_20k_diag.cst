@@ -1,0 +1,26 @@
+// Tang Nano 20K 3921 constraints shared by the 640x480 diagnostic top.
+// HDMI pairs and 27 MHz clock match the official Nano 20K HDMI example.
+IO_LOC "clk_27m" 4;
+IO_PORT "clk_27m" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+
+IO_LOC "btn_rst_n" 88;
+IO_PORT "btn_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+
+// Gowin maps ELVDS_OBUF.O to the lower pad and OB to the higher pad.
+// The RTL inverts O's input to account for the 3921 board's P/N routing.
+IO_LOC "tmds_clk_p" 33,34;
+IO_PORT "tmds_clk_p" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_d_p[0]" 35,36;
+IO_PORT "tmds_d_p[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_d_p[1]" 37,38;
+IO_PORT "tmds_d_p[1]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "tmds_d_p[2]" 39,40;
+IO_PORT "tmds_d_p[2]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// Inputs are retained for connector compatibility; diagnostic RTL ignores them.
+IO_LOC "ec11_a" 73;
+IO_PORT "ec11_a" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC "ec11_b" 74;
+IO_PORT "ec11_b" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+IO_LOC "ec11_key_n" 75;
+IO_PORT "ec11_key_n" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
